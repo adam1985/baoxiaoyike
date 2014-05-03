@@ -40,7 +40,7 @@ module.exports = function (grunt) {
                 "removeCombined": true,
                 "preserveLicenseComments": false,
                 "optimizeCss": "standard",
-                "name": "controller/index",
+                "name": "index",
                 "out": "assets/dist/index.js",
 
             }
@@ -57,7 +57,7 @@ module.exports = function (grunt) {
             },
 			styl: {
 				files: ['./assets/styl/*.styl'],
-				tasks: ['stylus']
+				tasks: ['stylus', 'cssmin']
 			},
 			css: {
 					files: ['./assets/css/*.css'],
@@ -92,8 +92,8 @@ module.exports = function (grunt) {
      * 自动编译
      */
 	
-    grunt.registerTask('wstyl', ['stylus', 'watch:styl']); // 自动触发编译styl -> css
-    grunt.registerTask('wcss', ['cssmin', 'watch:css']); //　自动压缩css文件
+    grunt.registerTask('wcss', ['stylus', 'cssmin', 'watch:styl']); // 自动触发编译styl，压缩css文件
+
     grunt.registerTask('wbuild', ['build', 'watch:build']); //　自动js合并压缩编译
 
         // 默认会执行default任务.

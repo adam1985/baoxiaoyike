@@ -23,12 +23,12 @@
                             <?php the_title(); ?>
                         </h2>
                         <div class="fr gray">
-                            <div class="fl art-writer">
+                            <!--div class="fl art-writer">
                                 <a href="javascript:void(null)">
                                     <i class="nv-sprites fl inline-block"></i>
-                                    <?php the_author(); ?>
+                                    <?php the_author() ?>
                                 </a>
-                            </div>
+                            </div-->
                             <div class="fr art-create-time">
                                 <?php echo '发表于 '.timeago( get_gmt_from_date(get_the_time('Y-m-d G:i:s')) ); ?>
                             </div>
@@ -69,8 +69,9 @@
             
             <div class="hot-joke-list">
                 <ul class="cl">
-                  <?php hots_posts(); ?>
+                  <?php //hots_posts(); ?>
                 </ul>
+                <div id="wumiiDisplayDiv"></div>
             </div>
         </div>
         <?php //get_sidebar(); ?>
@@ -79,5 +80,6 @@
         <?php include (TEMPLATEPATH . '/copyright.php'); ?>
     </div>
 </div>
+<?php include (TEMPLATEPATH . '/script.php'); ?>
 </body>
 </html>

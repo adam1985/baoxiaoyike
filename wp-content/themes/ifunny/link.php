@@ -1,2 +1,1 @@
-    <link type="text/css" rel="stylesheet" href="/assets/css/index.min.css" />
-    <script src="/assets/require.min.js" data-main="/assets/dist/index"></script>
+    <link type="text/css" rel="stylesheet" href="http://adam1985.github.io/baoxiaoyike/assets/css/index.min.css" />

@@ -553,6 +553,36 @@ function pagination($query_string){
 	}    
 }   
 
+//添加特色缩略图支持
+if ( function_exists('add_theme_support') )add_theme_support('post-thumbnails');
+ 
+function post_thumbnail_src(){
+    global $post;
+	if( $values = get_post_custom_values("thumb") ) {	//输出自定义域图片地址
+		$values = get_post_custom_values("thumb");
+		$post_thumbnail_src = $values [0];
+	} elseif( has_post_thumbnail() ){    //如果有特色缩略图，则输出缩略图地址
+        $thumbnail_src = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'full');
+		$post_thumbnail_src = $thumbnail_src [0];
+    } else {
+		$post_thumbnail_src = '';
+		ob_start();
+		ob_end_clean();
+		$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
+		$post_thumbnail_src = $matches[1][0];   //获取该图片 src
+		if(empty($post_thumbnail_src)){	//如果日志中没有图片，则显示随机图片
+			//$random = mt_rand(1, 10);
+			//echo get_bloginfo('template_url');
+			//echo '/images/pic/'.$random.'.jpg';
+			//如果日志中没有图片，则显示默认图片
+			//echo '/images/default_thumb.jpg';
+			return "";
+		}
+	};
+	return $post_thumbnail_src;
+}
+
+
 function hots_posts($num = 10, $before='<li>', $after='</li>'){         
 	global $wpdb;    
 	$sql = "SELECT comment_count,ID,post_title ";         
@@ -560,16 +590,21 @@ function hots_posts($num = 10, $before='<li>', $after='</li>'){
 	$sql .= "ORDER BY comment_count DESC ";         
 	$sql .= "LIMIT 0 , $num";         
 	$hotposts = $wpdb->get_results($sql);         
-	$output = '';         
+	$output = '';   
+	$post_thumbnail_src = post_thumbnail_src();    
 	
-	foreach ($hotposts as $hotpost) {             
-		$post_title = stripslashes($hotpost->post_title);             
-		$permalink = get_permalink($hotpost->ID);             
-		$output .= $before.'<div class="thumbnails"><a href="' . $permalink . '"  rel="bookmark" title="';  
-		$output .= $post_title . '">';
-		$output .= get_the_post_thumbnail($hotpost->ID, array(130,185) );
-		$output .= '<p>' . $post_title . '</p></a></div>';             
-		$output .= $after;         
+	foreach ($hotposts as $hotpost) {    
+		if( $post_thumbnail_src != "") {
+			$post_title = stripslashes($hotpost->post_title);             
+			$permalink = get_permalink($hotpost->ID);             
+			$output .= $before.'<div class="thumbnails"><a href="' . $permalink . '"  rel="bookmark" title="';  
+			$output .= $post_title . '">';
+			$output .= get_the_post_thumbnail($hotpost->ID, array(130,185) );
+			//$output .= "<img src=\"".$post_thumbnail_src."\" width=\"185\" height=\"130\" />";
+			$output .= '<p>' . $post_title . '</p></a></div>';             
+			$output .= $after;      
+		}      
+
 	}         
 	if($output==''){             
 		$output .= $before.'暂无...'.$after;         
@@ -578,22 +613,25 @@ function hots_posts($num = 10, $before='<li>', $after='</li>'){
 }
 
 
-function add_poll_good($post_ID, $value='10') {
+function add_poll_good($post_ID, $value) {
 	global $wpdb;
+	$value=mt_rand(1,10);
 	if(!wp_is_post_revision($post_ID)) {
 		add_post_meta($post_ID, 'poll_good', $value, true);
 	}
 }
 
-function add_poll_bad($post_ID, $value='10') {
+function add_poll_bad($post_ID, $value) {
 	global $wpdb;
+	$value=mt_rand(1,3);
 	if(!wp_is_post_revision($post_ID)) {
 		add_post_meta($post_ID, 'poll_bad', $value, true);
 	}
 }
 
-function add_poll($post_ID, $type, $value='10') {
+function add_poll($post_ID, $type, $value) {
 	global $wpdb;
+	$value=mt_rand(1,10);
 	if(!wp_is_post_revision($post_ID)) {
 		add_post_meta($post_ID, $type, $value, true);
 	}
@@ -667,6 +705,15 @@ function setPostViews($postID) {
 	}
 }
 
+function setBdText($post){
+	$content = mb_strimwidth(strip_tags(apply_filters('the_content', $post -> post_content)), 0, 200,"···");
+
+	if (strlen($content) < 5){ 
+		$content = $post->post_title;
+	}
+
+	return $content;
+}
 
 
 

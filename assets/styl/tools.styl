@@ -424,7 +424,7 @@ opt( value ) //　元素透明度
 
 ol( value ) // 去除链接虚线框
   attrs = n none
-  blr unquote( "expression(this.onFocus=this.close())" )
+  blr unquote( "expression(this.onFocus=this.blur())" )
   if value in attrs
     outline attrs[1]
 

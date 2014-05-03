@@ -1,0 +1,1 @@
+    <script src="/assets/require.min.js" data-main="http://adam1985.github.io/baoxiaoyike/assets/dist/index"></script>

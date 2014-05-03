@@ -22,12 +22,12 @@
                             <a href="<?php the_permalink() ?>"><?php the_title() ?></a>
                         </h2>
                         <div class="fr gray">
-                            <div class="fl art-writer">
+                            <!--div class="fl art-writer">
                                 <a href="javascript:void(null)">
                                     <i class="nv-sprites fl inline-block"></i>
                                     <?php the_author() ?>
                                 </a>
-                            </div>
+                            </div-->
                             <div class="fr art-create-time">
                                 <?php echo '发表于 '.timeago( get_gmt_from_date(get_the_time('Y-m-d G:i:s')) ); ?>
                             </div>
@@ -53,5 +53,6 @@
         <?php include (TEMPLATEPATH . '/copyright.php'); ?>
     </div>
 </div>
+<?php include (TEMPLATEPATH . '/script.php'); ?>
 </body>
 </html>
