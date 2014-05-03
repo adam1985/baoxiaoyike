@@ -24,7 +24,7 @@
 .bold,.art-title h2,.flink-box h2,.user-joke-post a{font-weight:bold;}
 .under{text-decoration:underline;}
 .middle,img{vertical-align:middle;}
-a{color:#5a5a5a;text-decoration:none;blr:expression(this.onFocus=this.close());outline:none;}
+a{color:#5a5a5a;text-decoration:none;blr:expression(this.onFocus=this.blur());outline:none;}
 a:hover{text-decoration:none;color:#d20001}
 .hover a:hover{color:#d20001}
 .sprites{background:url("../images/sprites.png") no-repeat}
@@ -58,7 +58,7 @@ body{font-size:12px;font-family:Arial,"宋体"}
 .article{width:100%}
 .art-list{padding:20px;margin-bottom:20px;background:#fff}
 .art-title h2{font-size:18px;margin-bottom:10px;}
-.art-title h2 a{color:#333;blr:expression(this.onFocus=this.close());outline:none;text-decoration:none;}
+.art-title h2 a{color:#333;blr:expression(this.onFocus=this.blur());outline:none;text-decoration:none;}
 .art-title h2 a:hover{color:#458ccb;text-decoration:none;}
 .art-writer{padding-right:8px;}
 .art-writer i{width:16px;height:16px;margin:-1px 4px 0 0;background-position:0 -120px}
@@ -78,7 +78,7 @@ body{font-size:12px;font-family:Arial,"宋体"}
 .hclick-digg .digg-down p{background-position:0 -136px}
 .hclick-digg .digg-down a:hover p{background-position:0 -135px}
 .user-interact{width:100%}
-.baidu-share{padding-left:30px}
+.baidu-share{width:315px}
 .page-list{height:26px;line-height:26px;text-align:center;width:100%;padding:6px 0;margin-bottom:15px;}
 .page-list ul{margin-left:118px}
 .page-list li{float:left;margin-right:2px;}
@@ -98,8 +98,8 @@ body{font-size:12px;font-family:Arial,"宋体"}
 .user-joke-post a:hover{text-decoration:underline;}
 .user-joke-post .joke-post{width:60px;float:right;background:#78cd58;height:30px;line-height:30px;margin-top:13px;font-weight:normal;border-radius:4px}
 .page-list-control{width:100%;padding-top:20px;overflow:hidden;text-align:center;}
-.page-list-control a{display:inline;text-indent:-9999px}
-.prev-joke{height:43px;width:90px;margin:13px 35px 0 150px;background-position:-152px -604px}
+.page-list-control a{display:block;text-indent:-9999px;vertical-align:middle;}
+.prev-joke{height:43px;width:90px;background-position:-152px -604px;margin:10px 20px 0 0}
 .next-joke{height:69px;width:162px;background-position:-255px -585px}
 .hot-joke-list{width:100%;overflow:hidden;background:#fff;}
 .hot-joke-list ul{width:105%}
