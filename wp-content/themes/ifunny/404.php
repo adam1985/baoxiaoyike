@@ -15,7 +15,7 @@
 <body>
 <div class="m404"><div class="m404_txt">“真的很抱歉，我们搞丢了页面……”要不去首页看看？<br>
 <span><a href="http://www.baoxiaoyike.cn/" target="_self">爆笑一刻</a> &gt;&gt;</span></div>
-<div class="m404_img"><img src="/assets/images/404.png" width="146" height="177" alt="真的很抱歉，我们搞丢了页面……要不去首页看看？" border="0"></div>
+<div class="m404_img"><img src="http://adam1985.github.io/baoxiaoyike/assets/images/404.png" width="146" height="177" alt="真的很抱歉，我们搞丢了页面……要不去首页看看？" border="0"></div>
 </div>
 </body>
 </html>
