@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="ujianVerification" content="e2bb13684e855a9c8d47dfeeebf46fbe" />
     <?php include (TEMPLATEPATH . '/meta.php'); ?>
     <?php include (TEMPLATEPATH . '/link.php'); ?>
 </head>

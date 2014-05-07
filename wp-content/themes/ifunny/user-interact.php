@@ -15,7 +15,7 @@
         </div>
 
         <div class="fr baidu-share">
-            <div class="bdsharebuttonbox" data-tag="share_1" data-config='{"bdText": "<?php echo setBdText($post);  ?>", "bdDesc": "<?php the_title(); ?>", "bdUrl" : "<?php the_permalink() ?>", "bdPic": "<?php echo post_thumbnail_src();  ?>"}'>
+            <div class="bdsharebuttonbox" data-tag="share_1" data-config='<?php createBdshare($post); ?>'>
                 <a class="bds_weixin" data-cmd="weixin"></a>
                 <a class="bds_tsina" data-cmd="tsina"></a>
                 <a class="bds_tqq" data-cmd="tqq"></a>

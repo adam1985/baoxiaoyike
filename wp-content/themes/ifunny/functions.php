@@ -613,7 +613,7 @@ function hots_posts($num = 10, $before='<li>', $after='</li>'){
 }
 
 
-function add_poll_good($post_ID, $value) {
+function add_poll_good($post_ID) {
 	global $wpdb;
 	$value=mt_rand(1,10);
 	if(!wp_is_post_revision($post_ID)) {
@@ -621,7 +621,7 @@ function add_poll_good($post_ID, $value) {
 	}
 }
 
-function add_poll_bad($post_ID, $value) {
+function add_poll_bad($post_ID) {
 	global $wpdb;
 	$value=mt_rand(1,3);
 	if(!wp_is_post_revision($post_ID)) {
@@ -705,14 +705,35 @@ function setPostViews($postID) {
 	}
 }
 
+ // 定义一个百度分享数据 
+class bdShare{  
+    var $bdText;  
+    var $bdDesc;  
+    var $bdUrl;  
+    var $bdPic;    
+}  
+      
+ 
+
 function setBdText($post){
 	$content = mb_strimwidth(strip_tags(apply_filters('the_content', $post -> post_content)), 0, 200,"···");
+	$content = trim($content);
 
 	if (strlen($content) < 5){ 
 		$content = $post->post_title;
 	}
 
 	return $content;
+}
+
+function createBdshare($post){
+    $bdShare = new bdShare(); 
+
+    $bdShare -> bdText = setBdText($post);
+    $bdShare -> bdDesc = $post->post_title;
+    $bdShare -> bdUrl = get_permalink();
+    $bdShare -> bdPic = post_thumbnail_src();
+	echo json_encode( $bdShare ); 
 }
 
 
