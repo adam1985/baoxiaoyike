@@ -478,7 +478,8 @@ do_action( 'edit_form_after_title', $post );
 if ( post_type_supports($post_type, 'editor') ) {
 ?>
 <div id="postdivrich" class="postarea edit-form-section">
-
+<a href="#TB_inline?inlineId=upload-to-github" class="button thickbox" title="上传图片到github">图片上传</a>
+<br /><br />
 <?php wp_editor( $post->post_content, 'content', array(
 	'dfw' => true,
 	'tabfocus_elements' => 'insert-media-button,save-post',
@@ -605,3 +606,98 @@ if ( post_type_supports( $post_type, 'comments' ) )
 try{document.post.title.focus();}catch(e){}
 </script>
 <?php endif; ?>
+<style>
+	.upload-file-box{height:90%;}
+    .loading-box{ display: none;}
+    .upload-to-github{ display: none;}
+</style>
+<div id="upload-to-github" class="upload-to-github">
+	<div class="upload-file-box" id="upload-file-box">
+        <input type="file" name="fileToUpload" id="fileToUpload"  multiple="multiple" />
+        <div class="loading-box" id="loading-box">正在上传中，请稍等...</div>
+        <div class="upload-images-box" id="upload-images-box">
+
+        </div>
+
+    </div>
+    
+     <a href="javascript:void(null)" class="button button-primary button-large">插入文章中</a>
+</div>
+<script src="js/lib/underscore-min.js"></script>
+<script src="js/lib/base64.js"></script>
+<script src="js/github.js"></script>
+<script>
+
+(function($){
+    var github = new Github({
+        username: "adam1985",
+        password: "yuan008598",
+        auth: "basic"
+    });
+    var repo = github.getRepo("adam1985", "baoxiaoyike"),
+            githubFile = $('#fileToUpload'),
+            uploadFileBox = $('#upload-file-box'),
+            loadingBox = $('#loading-box'),
+            uploadImagesBox = $('#upload-images-box');
+
+    Date.prototype.format = function(format){
+        var o = {
+            "M+" : this.getMonth()+1, //month
+            "d+" : this.getDate(), //day
+            "h+" : this.getHours(), //hour
+            "m+" : this.getMinutes(), //minute
+            "s+" : this.getSeconds(), //second
+            "q+" : Math.floor((this.getMonth()+3)/3), //quarter
+            "S" : this.getMilliseconds() //millisecond
+        };
+
+        if(/(y+)/.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+        }
+
+        for(var k in o) {
+            if(new RegExp("("+ k +")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+            }
+        }
+        return format;
+    };
+
+    githubFile.change(function(){
+        loadingBox.show();
+        var file = document.getElementById('fileToUpload').files[0];
+        var reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+        var date = new Date();
+        var dateStr = date.format("yyyy-MM-dd hh:mm:ss"),
+                path = 'http://adam1985.github.io/baoxiaoyike/img/',
+                fileName = (+new Date) + file.name;
+
+        uploadImagesBox.on('click', 'input', function(){
+             this.select();
+        });
+
+        reader.onload = function (e) {
+            repo.write('gh-pages', 'img/' + fileName, reader.result, dateStr,
+                    function(err) {
+                        loadingBox.hide();
+                        if( !err ) {
+                            var  img = $('<img />').attr('src', path + fileName);
+                            img.onload = function(){
+                                uploadImagesBox.html(img);
+                            };
+                            var input = $('<input type="text" />').css({
+                                width : 500,
+                                display : 'block'
+                            });
+                            input.val(path + fileName);
+                            uploadImagesBox.append(input);
+                        }
+                    });
+        };
+    });
+
+}(jQuery));
+
+
+</script>
