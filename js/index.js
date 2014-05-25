@@ -123,11 +123,18 @@
                     loadingBox.hide();
                     if( !err ) {
                         var p = $('<p></p>');
-                        var img = $('<img />').attr('src',path + fileName);
-                        p.append(img);
-                        alert("上传成功");
-                        jQuery('#content_ifr').contents().find("#tinymce").append(p);
-                        $('.tb-close-icon').trigger('click');
+
+                        var img = new Image();
+                        img.src = path + fileName;
+
+                        img.onload = function(){
+                            alert("上传成功");
+                            var $img = $(img);
+                            p.append($img);
+                            $('#content_ifr').contents().find("#tinymce").append($img);
+                            $('.tb-close-icon').trigger('click');
+                        };
+
                     } else {
                         alert("上传失败");
                     }
