@@ -86,6 +86,7 @@
     function getImageBlob(url, path) {
           var r = new XMLHttpRequest();
           var typeAndName = getImageTypeAndName(path);
+          path = path.replace(/^http:\/\//, '');
           url += "?action=remoteUpload&path=" + path;
           r.open("GET", url, false);
           r.overrideMimeType('text/plain; charset=x-user-defined');
