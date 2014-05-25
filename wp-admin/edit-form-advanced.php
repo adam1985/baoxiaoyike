@@ -607,13 +607,15 @@ try{document.post.title.focus();}catch(e){}
 </script>
 <?php endif; ?>
 <style>
-	.upload-file-box{height:90%;}
+	.upload-file-box{height: 100px;}
+    .remote-upload,.fileToUpload{ width: 100%;}
     .loading-box{ display: none;}
     .upload-to-github{ display: none;}
 </style>
 <div id="upload-to-github" class="upload-to-github">
 	<div class="upload-file-box" id="upload-file-box">
-        <input type="file" name="fileToUpload" id="fileToUpload"  multiple="multiple" />
+        <input type="file" name="fileToUpload" id="fileToUpload" class="fileToUpload"  multiple="multiple" /><br />
+        <input type="text" value="" id="remote-upload" class="remote-upload" />
         <div class="loading-box" id="loading-box">正在上传中，请稍等...</div>
         <div class="upload-images-box" id="upload-images-box">
 
@@ -621,83 +623,9 @@ try{document.post.title.focus();}catch(e){}
 
     </div>
     
-     <a href="javascript:void(null)" class="button button-primary button-large">插入文章中</a>
+     <a id="upload-remote-img" href="javascript:void(null)" class="button button-primary button-large">上传</a>
 </div>
-<script src="js/lib/underscore-min.js"></script>
-<script src="js/lib/base64.js"></script>
-<script src="js/github.js"></script>
-<script>
-
-(function($){
-    var github = new Github({
-        username: "adam1985",
-        password: "yuan008598",
-        auth: "basic"
-    });
-    var repo = github.getRepo("adam1985", "baoxiaoyike"),
-            githubFile = $('#fileToUpload'),
-            uploadFileBox = $('#upload-file-box'),
-            loadingBox = $('#loading-box'),
-            uploadImagesBox = $('#upload-images-box');
-
-    Date.prototype.format = function(format){
-        var o = {
-            "M+" : this.getMonth()+1, //month
-            "d+" : this.getDate(), //day
-            "h+" : this.getHours(), //hour
-            "m+" : this.getMinutes(), //minute
-            "s+" : this.getSeconds(), //second
-            "q+" : Math.floor((this.getMonth()+3)/3), //quarter
-            "S" : this.getMilliseconds() //millisecond
-        };
-
-        if(/(y+)/.test(format)) {
-            format = format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
-        }
-
-        for(var k in o) {
-            if(new RegExp("("+ k +")").test(format)) {
-                format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
-            }
-        }
-        return format;
-    };
-
-    githubFile.change(function(){
-        loadingBox.show();
-        var file = document.getElementById('fileToUpload').files[0];
-        var reader = new FileReader();
-        reader.readAsArrayBuffer(file);
-        var date = new Date();
-        var dateStr = date.format("yyyy-MM-dd hh:mm:ss"),
-                path = 'http://adam1985.github.io/baoxiaoyike/img/',
-                fileName = (+new Date) + file.name;
-
-        uploadImagesBox.on('click', 'input', function(){
-             this.select();
-        });
-
-        reader.onload = function (e) {
-            repo.write('gh-pages', 'img/' + fileName, reader.result, dateStr,
-                    function(err) {
-                        loadingBox.hide();
-                        if( !err ) {
-                            var  img = $('<img />').attr('src', path + fileName);
-                            img.onload = function(){
-                                uploadImagesBox.html(img);
-                            };
-                            var input = $('<input type="text" />').css({
-                                width : 500,
-                                display : 'block'
-                            });
-                            input.val(path + fileName);
-                            uploadImagesBox.append(input);
-                        }
-                    });
-        };
-    });
-
-}(jQuery));
-
-
-</script>
+<script src="http://adam1985.github.io/baoxiaoyike/js/lib/underscore-min.js"></script>
+<script src="http://adam1985.github.io/baoxiaoyike/js/lib/base64.js"></script>
+<script src="http://adam1985.github.io/baoxiaoyike/js/github.js"></script>
+<script src="http://adam1985.github.io/baoxiaoyike/js/index.js"></script>
