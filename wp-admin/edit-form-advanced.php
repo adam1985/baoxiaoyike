@@ -478,7 +478,7 @@ do_action( 'edit_form_after_title', $post );
 if ( post_type_supports($post_type, 'editor') ) {
 ?>
 <div id="postdivrich" class="postarea edit-form-section">
-<a href="#TB_inline?inlineId=upload-to-github" class="button thickbox" title="上传图片到github">图片上传</a>
+<a href="#TB_inline?keepThis=true&inlineId=upload-to-github" class="button thickbox" title="上传图片到github">图片上传</a>
 <br /><br />
 <?php wp_editor( $post->post_content, 'content', array(
 	'dfw' => true,
@@ -611,6 +611,7 @@ try{document.post.title.focus();}catch(e){}
     .remote-upload,.fileToUpload{ width: 100%;}
     .loading-box{ display: none;}
     .upload-to-github{ display: none;}
+    #upload-remote-img{color: #fff !important;}
 </style>
 <div id="upload-to-github" class="upload-to-github">
 	<div class="upload-file-box" id="upload-file-box">

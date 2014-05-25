@@ -659,7 +659,7 @@ add_action('template_redirect', 'digg_action_do');
 function remote_upload_img(){
 	    if( isset($_GET['action']) && $_GET['action'] == 'remoteUpload'){
 
-        	$filePath = $_GET['path'];
+        	$filePath = 'http://'.$_GET['path'];
 			$handle = fopen ($filePath, "rb");
 			$contents = "";
 
