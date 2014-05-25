@@ -103,14 +103,15 @@
     });
 
     var repo = github.getRepo("adam1985", "baoxiaoyike"),
-            githubFile = $('#fileToUpload'),
-            uploadFileBox = $('#upload-file-box'),
-            loadingBox = $('#loading-box'),
-            uploadImagesBox = $('#upload-images-box');
+        githubFile = $('#fileToUpload'),
+        uploadFileBox = $('#upload-file-box'),
+        loadingBox = $('#loading-box'),
+        uploadImagesBox = $('#upload-images-box');
 
     function doActionUpload( blob ) {
         var reader = new FileReader();
         reader.readAsArrayBuffer(blob);
+
         var date = new Date();
         var dateStr = date.format("yyyy-MM-dd hh:mm:ss"),
             path = 'http://adam1985.github.io/baoxiaoyike/img/',
@@ -121,9 +122,11 @@
                 function(err) {
                     loadingBox.hide();
                     if( !err ) {
+                        var p = $('<p></p>');
                         var img = $('<img />').attr('src',path + fileName);
+                        p.append(img);
                         alert("上传成功");
-                        jQuery('#content_ifr').contents().find("#tinymce").append(img);
+                        jQuery('#content_ifr').contents().find("#tinymce").append(p);
                         $('.tb-close-icon').trigger('click');
                     } else {
                         alert("上传失败");
