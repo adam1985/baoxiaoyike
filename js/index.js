@@ -130,7 +130,7 @@
                         img.onload = function(){
                             alert("上传成功");
                             var $img = $(img);
-                            p.append($img);
+                            //p.append($img);
                             $('#content_ifr').contents().find("#tinymce").append($img);
                             $('.tb-close-icon').trigger('click');
                         };
