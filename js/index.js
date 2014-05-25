@@ -152,7 +152,7 @@
     $('#upload-remote-img').click(function(){
         loadingBox.show();
         var path = $('#remote-upload').val();
-        var blob = getImageBlob('/',path);
+        var blob = getImageBlob('http://www.baoxiaoyike.cn/',path);
         doActionUpload( blob );
     });
 
