@@ -127,13 +127,13 @@
                         var img = new Image();
                         img.src = path + fileName;
 
-                        img.onload = function(){
-                            alert("上传成功");
-                            var $img = $(img);
-                            //p.append($img);
-                            $('#content_ifr').contents().find("#tinymce").append($img);
-                            $('.tb-close-icon').trigger('click');
-                        };
+                        alert("上传成功");
+                        var $img = $(img);
+                        //p.append($img);
+                        $('#content_ifr').contents().find("#tinymce").append($img);
+                        $('.tb-close-icon').trigger('click');
+
+                        img.onload = function(){};
 
                     } else {
                         alert("上传失败");
