@@ -122,18 +122,18 @@
                 function(err) {
                     loadingBox.hide();
                     if( !err ) {
-                        var p = $('<p></p>');
 
-                        var img = new Image();
-                        img.src = path + fileName;
+                        //var img = new Image();
+                        //img.src = path + fileName;
 
                         alert("上传成功");
-                        var $img = $(img);
+                        //var $img = $(img);
+                        tinyMCE.execCommand("mceInsertContent", false, '<img src="' + path + fileName + '" />');
                         //p.append($img);
-                        $('#content_ifr').contents().find("#tinymce").append($img);
-                        $('.tb-close-icon').trigger('click');
+                        //$('#content_ifr').contents().find("#tinymce").append($img);
+                        //$('.tb-close-icon').trigger('click');
 
-                        img.onload = function(){};
+                        //img.onload = function(){};
 
                     } else {
                         alert("上传失败");
