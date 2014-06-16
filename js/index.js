@@ -116,7 +116,7 @@
         var date = new Date();
         var dateStr = date.format("yyyy-MM-dd hh:mm:ss"),
             path = 'http://adam1985.github.io/baoxiaoyike/img/',
-            fileName = (+new Date) + blob.name;
+            fileName = (+new Date);
 
         reader.onload = function (e) {
             repo.write('gh-pages', 'img/' + fileName, reader.result, dateStr,
