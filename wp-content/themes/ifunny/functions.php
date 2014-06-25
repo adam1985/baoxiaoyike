@@ -629,7 +629,7 @@ function add_poll_bad($post_ID) {
 	}
 }
 
-function add_poll($post_ID, $type, $value) {
+function add_poll($post_ID, $type) {
 	global $wpdb;
 	$value=mt_rand(1,10);
 	if(!wp_is_post_revision($post_ID)) {
@@ -655,6 +655,27 @@ function digg_action_do(){
 }
 
 add_action('template_redirect', 'digg_action_do');
+
+function remote_upload_img(){
+	    if( isset($_GET['action']) && $_GET['action'] == 'remoteUpload'){
+
+        	$filePath = 'http://'.$_GET['path'];
+			$handle = fopen ($filePath, "rb");
+			$contents = "";
+
+			while (!feof($handle)) {
+			    $contents .= fread($handle, 8192);
+			}
+			//$contents = file_get_contents($filePath);
+			fclose($handle);
+			echo $contents;
+            die();
+        }else{
+            echo "";
+        }
+}
+
+add_action('template_redirect', 'remote_upload_img');
 
 function thumbSrc($ID){
 	$thumbnail= wp_get_attachment_image_src ( get_post_thumbnail_id ( $ID ));

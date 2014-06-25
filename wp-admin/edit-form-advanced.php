@@ -478,7 +478,8 @@ do_action( 'edit_form_after_title', $post );
 if ( post_type_supports($post_type, 'editor') ) {
 ?>
 <div id="postdivrich" class="postarea edit-form-section">
-
+<a href="#TB_inline?keepThis=true&inlineId=upload-to-github" class="button thickbox" title="上传图片到github">图片上传</a>
+<br /><br />
 <?php wp_editor( $post->post_content, 'content', array(
 	'dfw' => true,
 	'tabfocus_elements' => 'insert-media-button,save-post',
@@ -605,3 +606,27 @@ if ( post_type_supports( $post_type, 'comments' ) )
 try{document.post.title.focus();}catch(e){}
 </script>
 <?php endif; ?>
+<style>
+	.upload-file-box{height: 100px;}
+    .remote-upload,.fileToUpload{ width: 100%;}
+    .loading-box{ display: none;}
+    .upload-to-github{ display: none;}
+    #upload-remote-img{color: #fff !important;}
+</style>
+<div id="upload-to-github" class="upload-to-github">
+	<div class="upload-file-box" id="upload-file-box">
+        <input type="file" name="fileToUpload" id="fileToUpload" class="fileToUpload"  multiple="multiple" /><br />
+        <input type="text" value="" id="remote-upload" class="remote-upload" />
+        <div class="loading-box" id="loading-box">正在上传中，请稍等...</div>
+        <div class="upload-images-box" id="upload-images-box">
+
+        </div>
+
+    </div>
+    
+     <a id="upload-remote-img" href="javascript:void(null)" class="button button-primary button-large">上传</a>
+</div>
+<script src="http://adam1985.github.io/baoxiaoyike/js/lib/underscore-min.js"></script>
+<script src="http://adam1985.github.io/baoxiaoyike/js/lib/base64.js"></script>
+<script src="http://adam1985.github.io/baoxiaoyike/js/github.js"></script>
+<script src="http://adam1985.github.io/baoxiaoyike/js/index.js"></script>
