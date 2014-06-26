@@ -1,8 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" <?php language_attributes() ?>>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
-<meta name="viewport" content="width=device-width" />
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0, user-scalable=0;">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="ujianVerification" content="e2bb13684e855a9c8d47dfeeebf46fbe" />
 <title>
 	<?php
 	global $page, $paged;
@@ -13,10 +16,12 @@
 		echo " | $site_description";
 	?>
 </title>
-<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
+<meta name="keywords" content="笑话,爆笑一刻,搞笑,幽默笑话"/>
+<meta name="description" content="爆笑一刻笑话大全是汇集了全国各地笑话，天天笑料海量更新，让你乐不停"/>
+<link rel="stylesheet" type="text/css" media="all" href="http://adam1985.github.io/baoxiaoyike/app/css/style.css" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php wp_head(); ?>
-<script type="text/javascript" src="<?php bloginfo('stylesheet_directory'); ?>/jquery.min.js" ></script>
+<script type="text/javascript" src="http://adam1985.github.io/baoxiaoyike/app/scripts/jquery.min.js" ></script>
 <?php if ( is_home() || is_archive() || is_search()) { ?>
 <script type="text/javascript">
 	$('.load_more_cont a').live('click', function(e) {

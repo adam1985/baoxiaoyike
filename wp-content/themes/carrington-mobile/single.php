@@ -7,6 +7,7 @@
 					<h2 class="primary-title"><?php the_title(); ?></h2>
 					<div class="archive_info">
 						<span class="date"><?php the_time('Y年m月d日') ?></span>
+						<span><a href="javascript:viewProfile();">爆笑一刻</a></span>
 						<span class="comment"> &#8260; <?php comments_popup_link('暂无评论', '评论数 1', '评论数 %'); ?></span>
 						<?php if(function_exists('the_views')) { print ' &#8260; 被围观 '; the_views(); print '+';  } ?>
 						<span class="edit"><?php edit_post_link('编辑', '  ', '  '); ?></span>
@@ -30,3 +31,12 @@
 <?php include('tab.php'); ?>
 <?php comments_template(); ?>
 <?php get_footer(); ?>
+<script>
+        var nickname = "爆笑一刻";
+        var user_name = "gh_7de45f5b71f9";
+function viewProfile() {
+    typeof WeixinJSBridge != "undefined" && WeixinJSBridge.invoke && WeixinJSBridge.invoke("profile", {
+        username: user_name,
+        scene: "57"
+});
+</script>
