@@ -57,7 +57,7 @@ function bauhaus_setting_defaults( $settings ) {
 	$settings->bauhaus_background_color = '#f9f9f8';
 	$settings->bauhaus_header_color = '#2d353f';
 	$settings->bauhaus_link_color = '#35c4ff';
-	$settings->bauhaus_post_page_header_color = '#6dfdb9';
+	//$settings->bauhaus_post_page_header_color = '#6dfdb9';
 
 	// Shapes
 	$settings->bauhaus_shape_type = 'circles';
@@ -126,7 +126,7 @@ function bauhaus_theme_init() {
 	foundation_register_theme_color( 'bauhaus_background_color', __( 'Theme background', 'wptouch-pro' ), '', '.page-wrapper', BAUHAUS_SETTING_DOMAIN );
 	foundation_register_theme_color( 'bauhaus_header_color', __( 'Header & Menu', 'wptouch-pro' ), 'a', 'body, header, .wptouch-menu, #search-dropper, .date-circle', BAUHAUS_SETTING_DOMAIN );
 	foundation_register_theme_color( 'bauhaus_link_color', __( 'Links', 'wptouch-pro' ), 'a, #slider a p:after', '.dots li.active, #switch .active', BAUHAUS_SETTING_DOMAIN );
-	foundation_register_theme_color( 'bauhaus_post_page_header_color', __( 'Post/Page Headers', 'wptouch-pro' ), '', '.bauhaus, .wptouch-login-wrap, form#commentform button#submit', BAUHAUS_SETTING_DOMAIN );
+	foundation_register_theme_color( 'bauhaus_post_page_header_color', __( 'Post/Page Headers', 'wptouch-pro' ), '', '', BAUHAUS_SETTING_DOMAIN );
 }
 
 // Example of how to register Google font pairings

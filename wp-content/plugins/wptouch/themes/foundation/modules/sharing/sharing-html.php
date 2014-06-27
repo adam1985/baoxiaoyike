@@ -1,3 +1,4 @@
+<?php if( !isAppView() ) { ?>
 <div class="bdsharebuttonbox" data-tag="share_1">
 	<ul class="clearfix">
 	    <li><a class="bds_tsina" data-cmd="tsina"></a></li>
@@ -28,3 +29,4 @@ window._bd_share_config = {"common": {
     ]};
 	with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
 </script>
+<?php } ?>

@@ -615,11 +615,11 @@ ul.dots {
 }
 
 .post-page-head-area.bauhaus {
-	background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,500, from(rgba(0, 0, 0,0)), to(rgba(255, 255, 255, 0.50)));
+	/*background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,500, from(rgba(0, 0, 0,0)), to(rgba(255, 255, 255, 0.50)));*/
 	text-align: center;
 	padding-top: 5px;
 	padding-bottom: 5px;
-	text-shadow: rgba(255,255,255,.3) 0px 1px 0px;
+	/*text-shadow: rgba(255,255,255,.3) 0px 1px 0px;*/
 	overflow: hidden;
 }
 

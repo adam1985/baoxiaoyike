@@ -1,4 +1,9 @@
-<?php get_header(); ?>
+<?php 
+
+	get_header();
+	
+
+?>
 
 	<!--
 	<div class="crumb-path bauhaus">
@@ -66,9 +71,9 @@
 	<?php get_template_part( 'related-posts' ); ?>
 	
 	<?php if ( comments_open() ) { ?>
-		<div id="comments">
-			<?php comments_template(); ?>
-		</div>
+		<!--div id="comments">
+			<?php //comments_template(); ?>
+		</div-->
 	<?php } ?>
 	
 <?php get_footer(); ?>

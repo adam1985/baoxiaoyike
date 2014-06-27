@@ -914,7 +914,7 @@ function wptouch_fdn_archive_load_more_text() {
 	$total_results = $wp_query->found_posts;
 
 	if ( is_category() ) {
-		echo( __( 'Load more from this category', 'wptouch-pro' ) );
+		echo( __( '加载更多笑话…', 'wptouch-pro' ) );
 	} elseif ( is_tag() ) {
 		echo( __( 'Load more tagged like this', 'wptouch-pro' ) );
 	} elseif ( is_day() ) {

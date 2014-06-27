@@ -1,5 +1,5 @@
 <div class="page-wrapper">
-
+<?php if( !isAppView() ) { ?>
 	<header id="header-title-logo">
 		<?php if ( bauhaus_should_show_search() ) { ?>
 			<div id="search-toggle" class="search-toggle tappable" role="button"><!--icon-search--></div>
@@ -60,4 +60,6 @@
 	<div class="post-page-head-area bauhaus">
 		<?php wptouch_fdn_archive_title_text(); ?>
 	</div>
+<?php } ?>
+
 <?php } ?>

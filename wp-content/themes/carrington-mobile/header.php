@@ -51,5 +51,10 @@
 <body class="custom-background">
 <div id="wrapper">
 	<div id="header">
-		<h1><a href="<?php echo get_option('home'); ?>/"><span class="blog-name"><?php bloginfo('name'); ?></span><span  class="blog-title"><?php bloginfo('description'); ?></span ></a></h1>
+		<h1>
+			<a href="<?php echo get_option('home'); ?>/">
+				<span class="blog-name"><?php bloginfo('name'); ?></span>
+				<span class="blog-title"><?php bloginfo('description'); ?></span>
+			</a>
+		</h1>
 	</div>

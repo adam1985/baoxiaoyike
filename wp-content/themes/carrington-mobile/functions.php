@@ -33,5 +33,43 @@ function mytheme_comment($comment, $args, $depth) {
 function mytheme_end_comment() {
 		echo '</li>';
 }
+
+function post_thumbnail_src(){
+    global $post;
+	if( $values = get_post_custom_values("thumb") ) {	//输出自定义域图片地址
+		$values = get_post_custom_values("thumb");
+		$post_thumbnail_src = $values [0];
+	} elseif( has_post_thumbnail() ){    //如果有特色缩略图，则输出缩略图地址
+        $thumbnail_src = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'full');
+		$post_thumbnail_src = $thumbnail_src [0];
+    } else {
+		$post_thumbnail_src = '';
+		ob_start();
+		ob_end_clean();
+		echo $post->post_content;
+		$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
+		$post_thumbnail_src = $matches[1][0];   //获取该图片 src
+		if(empty($post_thumbnail_src)){	//如果日志中没有图片，则显示随机图片
+			//$random = mt_rand(1, 10);
+			//echo get_bloginfo('template_url');
+			//echo '/images/pic/'.$random.'.jpg';
+			//如果日志中没有图片，则显示默认图片
+			//echo '/images/default_thumb.jpg';
+			return "";
+		}
+	};
+	return $post_thumbnail_src;
+}
+
+function setBdText($post){
+	$content = mb_strimwidth(strip_tags(apply_filters('the_content', $post -> post_content)), 0, 200,"···");
+	$content = trim($content);
+
+	if (strlen($content) < 5){ 
+		$content = $post->post_title;
+	}
+
+	return $content;
+}
 //全部结束
 ?>

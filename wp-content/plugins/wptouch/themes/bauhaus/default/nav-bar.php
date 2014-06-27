@@ -1,3 +1,4 @@
+<?php if( !isAppView() ) { ?>
 <?php  if ( is_single() ) { ?>
 	<div class="nav-controls clearfix">
 		
@@ -15,4 +16,5 @@
 			</div>
 		<?php } ?>
 	</div>
+<?php } ?>
 <?php } ?>

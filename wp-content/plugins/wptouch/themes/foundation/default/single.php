@@ -1,5 +1,4 @@
 <?php get_header(); ?>
-11111111111111
 	<div id="content">
 		<?php while ( wptouch_have_posts() ) { ?>
 		
@@ -24,7 +23,7 @@
 	
 	<?php if ( comments_open() ) { ?>
 		<div id="comments">
-			<?php comments_template(); ?>
+			<?php //comments_template(); ?>
 		</div>
 	<?php } ?>
 	
