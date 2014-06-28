@@ -7,10 +7,24 @@
 					<h2 class="primary-title"><?php the_title(); ?></h2>
 					<div class="archive_info">
 						<span class="date"><?php the_time('Y年m月d日') ?></span>
-						<span><a href="javascript:void(null)">爆笑一刻</a></span>
+						<span><a class="add-contacts" href="weixin://contacts/profile/gh_7de45f5b71f9">爆笑一刻</a></span>
 						<span class="comment"> &#8260; <?php comments_popup_link('暂无评论', '评论数 1', '评论数 %'); ?></span>
 						<?php if(function_exists('the_views')) { print ' &#8260; 被围观 '; the_views(); print '+';  } ?>
 						<span class="edit"><?php edit_post_link('编辑', '  ', '  '); ?></span>
+					</div>
+					<div class="mini-share">
+						<div class="bshare-custom">
+							<a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+							<a title="分享到腾讯微博" class="bshare-qqmb"></a>
+							<a title="分享到QQ空间" class="bshare-qzone"></a>
+							<a title="分享到腾讯朋友" class="bshare-qqxiaoyou"></a>
+							<a title="分享到人人网" class="bshare-renren"></a>
+							<a title="分享到网易微博" class="bshare-neteasemb"></a>
+							<span class="BSHARE_COUNT bshare-share-count">0</span>
+						</div>
+						<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=718feda1-4152-4ab7-ab90-418b8fa918bf&amp;pophcol=2&amp;lang=zh"></script>
+						<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+
 					</div>
 				<div id="joke-content">
 					<?php the_content('Read more...'); ?>
@@ -36,18 +50,20 @@
 <script type="text/javascript" src="http://adam1985.github.io/baoxiaoyike/app/scripts/WeixinApi.js" ></script>
 <script>
 
+var thumbnails = $('#joke-content img'), imgSrc;
+if(thumbnails.length){
+	imgSrc = thumbnails.first().attr('src');
+} else {
+	imgSrc = 'http://adam1985.github.io/baoxiaoyike/assets/images/mini_logo.jpg';
+}
+
+if(!/http/i.test(imgSrc)) {
+	imgSrc = 'http://www.baoxiaoyike.cn/' + imgSrc;
+}
+
 WeixinApi.ready(function(Api) {
 
-	var thumbnails = $('#joke-content img'), imgSrc;
-	if(thumbnails.length){
-		imgSrc = thumbnails.first().attr('src');
-	} else {
-		imgSrc = 'http://adam1985.github.io/baoxiaoyike/assets/images/mini_logo.jpg';
-	}
-	
-	if(!/http/i.test(imgSrc)) {
-		imgSrc = 'http://www.baoxiaoyike.cn/' + imgSrc;
-	}
+
 
     // 微信分享的数据
     var wxData = {
@@ -98,4 +114,12 @@ WeixinApi.ready(function(Api) {
     //Api.shareToWeibo(wxData, wxCallbacks);
 });
 </script>
+<script type="text/javascript" charset="utf-8">
+	bShare.addEntry({
+		title: "<?php echo $post->post_title; ?>",
+		url: location.href,
+		summary: "<?php echo setBdText($post); ?>",
+		pic: imgSrc
+	});
+</script> 
 <?php get_footer(); ?>

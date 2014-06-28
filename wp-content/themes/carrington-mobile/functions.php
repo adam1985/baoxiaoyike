@@ -63,11 +63,14 @@ function post_thumbnail_src(){
 
 function setBdText($post){
 	$content = mb_strimwidth(strip_tags(apply_filters('the_content', $post -> post_content)), 0, 200,"···");
-	$content = trim($content);
+	$content =preg_replace("/[\r\n]/","",$content); 
+	
 
 	if (strlen($content) < 5){ 
 		$content = $post->post_title;
 	}
+	
+	$content = trim($content);
 
 	return $content;
 }
