@@ -138,7 +138,7 @@ ul {
 .archive_info {
 	font-size: 12px;
 	color: #666;
-	margin: 0 0 5px 0;
+	/*margin: 0 0 5px 0;*/
 }
 .primary p,.primary ul,.primaryol,.primary dd,.primary pre,.primary hr {
 	margin: 0 0 10px 0;
@@ -443,3 +443,6 @@ img.alignleft {
 .message {
 	margin-bottom:-6px;
 }
+.mini-share{overflow:hidden; margin-bottom:3px;}
+.mini-share > div { float:right;}
+.add-contacts{color:#607FA6;}
