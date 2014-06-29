@@ -358,8 +358,16 @@
             "encoding": "utf-8"
           };
         } else {
+			var fileArray = new Uint8Array(content), step = 1000, start = 0, len = Math.ceil( fileArray.length / step ), contentStr = '';
+
+			for(var i = 0; i < len; i++){
+				
+				contentStr += String.fromCharCode.apply(null, [].slice.call(fileArray, start, start + step));
+				start += 1000;
+			}
+			
           	content = {
-              "content": btoa(String.fromCharCode.apply(null, new Uint8Array(content))),
+              "content": btoa(contentStr),
               "encoding": "base64"
             };
           }

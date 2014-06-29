@@ -128,7 +128,8 @@
                         //var img = new Image();
                         //img.src = path + fileName;
 
-                        alert("上传成功");
+                        prompt("上传成功", path + fileName);
+						$('#remote-upload').val(path + fileName);
                         //var $img = $(img);
                         tinyMCE.execCommand("mceInsertContent", false, '<img src="' + path + fileName + '" />');
                         //p.append($img);

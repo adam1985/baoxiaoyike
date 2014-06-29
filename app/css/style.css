@@ -446,3 +446,39 @@ img.alignleft {
 .mini-share{overflow:hidden; margin-bottom:3px;}
 .mini-share > div { float:right;}
 .add-contacts{color:#607FA6;}
+
+.weixin-share-tip, .weixin-share-tip img {
+    width: 100%;
+}
+.weixin-share-tip {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1000;
+	  background: none repeat scroll 0 0 #FFFFFF;
+	  border-radius: 5px;
+	  box-shadow: 0 3px 16px #333333;
+	  box-sizing: border-box;
+		
+	
+}
+.chat-alert-box {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border-radius: 5px;
+  box-shadow: 0 3px 16px #333333;
+  box-sizing: border-box;
+  left: 50%;
+  padding: 30px 20px;
+  position: fixed;
+  text-align: center;
+  top: 50%;
+  width: 80%;
+  z-index: 9999;
+}
+#share-weixin-icon{
+	display:inline-block;
+	padding-left : 0;
+	margin-right:6px;
+
+}
+#share-weixin-icon img {vertical-align:midden;}
