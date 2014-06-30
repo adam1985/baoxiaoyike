@@ -74,5 +74,44 @@ function setBdText($post){
 
 	return $content;
 }
+
+function add_poll_good($post_ID) {
+	global $wpdb;
+	$value=mt_rand(1,10);
+	if(!wp_is_post_revision($post_ID)) {
+		add_post_meta($post_ID, 'poll_good', $value, true);
+	}
+}
+
+function add_poll_bad($post_ID) {
+	global $wpdb;
+	$value=mt_rand(1,3);
+	if(!wp_is_post_revision($post_ID)) {
+		add_post_meta($post_ID, 'poll_bad', $value, true);
+	}
+}
+
+
+add_action('publish_post', 'add_poll_good');
+add_action('publish_post', 'add_poll_bad');
+
+//判断是否为微信
+
+function isWeixin(){ 
+
+    $agent = strtolower($_SERVER['HTTP_USER_AGENT']); 
+
+    if(preg_match("/micromessenger/i", $agent)){
+
+        return true;
+
+    }else{
+
+        return false;
+
+    }
+
+}
+
 //全部结束
 ?>

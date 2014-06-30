@@ -11,9 +11,9 @@
  *
  * @var bool
  */
+ob_start(); 
  
- 
-   //判断是否移动端
+//判断是否移动端
 
 function isMobile(){
 
@@ -81,7 +81,7 @@ if ( isMobile() ){
 }
 
 
-
+ob_end_flush();
 
 
 define('WP_USE_THEMES', true);

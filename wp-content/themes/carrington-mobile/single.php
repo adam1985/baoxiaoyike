@@ -14,6 +14,16 @@
 					</div>
 					<div class="mini-share">
 						<div class="bshare-custom">
+							<?php 
+								if( isWeixin() ) {
+							?>
+								<a title="分享到微信" id="share-weixin-icon" class="share-weixin-icon">
+									<img src="http://static.bshare.cn/frame/images/logos/s4/weixin.png" />
+								</a>
+							<?php } else {  ?>
+								<a title="分享到微信" class="bshare-weixin"></a>
+							<?php } ?>
+
 							<a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
 							<a title="分享到腾讯微博" class="bshare-qqmb"></a>
 							<a title="分享到QQ空间" class="bshare-qzone"></a>
@@ -25,6 +35,9 @@
 						<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=718feda1-4152-4ab7-ab90-418b8fa918bf&amp;pophcol=2&amp;lang=zh"></script>
 						<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
 
+					</div>
+					<div id="weixin-share-tip" class="hide weixin-share-tip">
+						<img src="http://adam1985.github.io/baoxiaoyike/app/images/weixin-share.png">
 					</div>
 				<div id="joke-content">
 					<?php the_content('Read more...'); ?>
@@ -122,4 +135,30 @@ WeixinApi.ready(function(Api) {
 		pic: imgSrc
 	});
 </script> 
+<script>
+(function(){
+ var ua = navigator.userAgent.toLowerCase(),
+	shareWeixinIcon = $('#share-weixin-icon'),
+	weixinShareTip = $('#weixin-share-tip'), timeout ;
+	if( /micromessenger/i.test( ua ) ) {
+		shareWeixinIcon.click(function(e){
+			e.stopPropagation();
+			weixinShareTip.slideDown();
+			document.body.scrollTop = 0;
+			timeout = setTimeout( function(){
+				if( weixinShareTip.is(':visible') ) {
+					timeout && clearTimeout(timeout);
+					weixinShareTip.slideUp();
+				}
+			}, 10 * 1000);
+		});
+		
+		$(document).click(function(){
+			timeout && clearTimeout(timeout);
+			weixinShareTip.slideUp();
+		});
+
+	}
+})();
+</script>
 <?php get_footer(); ?>
