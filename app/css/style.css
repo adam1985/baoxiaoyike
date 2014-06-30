@@ -144,7 +144,7 @@ ul {
 	margin: 0 0 10px 0;
 }
 .primary p {
-	text-indent: 2em;
+	/*text-indent: 2em;*/
 }
 .primary p a {
 	color: #0196e3;
