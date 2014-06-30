@@ -7,13 +7,14 @@
 					<h2 class="primary-title"><?php the_title(); ?></h2>
 					<div class="archive_info">
 						<span class="date"><?php the_time('Y年m月d日') ?></span>
-						<span><a class="add-contacts" href="weixin://contacts/profile/gh_7de45f5b71f9">爆笑一刻</a></span>
+						<span><a class="add-contacts" href="#mp.weixin.qq.com" onclick="javascript:viewProfile()">爆笑一刻</a></span>
 						<span class="comment"> &#8260; <?php comments_popup_link('暂无评论', '评论数 1', '评论数 %'); ?></span>
 						<?php if(function_exists('the_views')) { print ' &#8260; 被围观 '; the_views(); print '+';  } ?>
 						<span class="edit"><?php edit_post_link('编辑', '  ', '  '); ?></span>
 					</div>
 					<div class="mini-share">
 						<div class="bshare-custom">
+
 							<?php 
 								if( isWeixin() ) {
 							?>
@@ -23,13 +24,14 @@
 							<?php } else {  ?>
 								<a title="分享到微信" class="bshare-weixin"></a>
 							<?php } ?>
-
+							
 							<a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
 							<a title="分享到腾讯微博" class="bshare-qqmb"></a>
 							<a title="分享到QQ空间" class="bshare-qzone"></a>
 							<a title="分享到腾讯朋友" class="bshare-qqxiaoyou"></a>
 							<a title="分享到人人网" class="bshare-renren"></a>
 							<a title="分享到网易微博" class="bshare-neteasemb"></a>
+							<a title="一键分享到各大微博和社交网络" class="bshare-bsharesync"></a>
 							<span class="BSHARE_COUNT bshare-share-count">0</span>
 						</div>
 						<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=718feda1-4152-4ab7-ab90-418b8fa918bf&amp;pophcol=2&amp;lang=zh"></script>
@@ -64,8 +66,9 @@
 <script>
 
 var thumbnails = $('#joke-content img'), imgSrc;
+
 if(thumbnails.length){
-	imgSrc = thumbnails.first().attr('src');
+	imgSrc = thumbnails.eq(0).attr('src');
 } else {
 	imgSrc = 'http://adam1985.github.io/baoxiaoyike/assets/images/mini_logo.jpg';
 }
@@ -83,8 +86,8 @@ WeixinApi.ready(function(Api) {
         "appId": "", // 服务号可以填写appId
         "imgUrl" : imgSrc,
         "link" : location.href,
-        "desc" : '<?php echo setBdText($post); ?>',
-        "title" : "<?php echo $post->post_title; ?>"
+        "desc" : <?php echo  json_encode(setBdText($post)); ?>,
+        "title" : <?php echo json_encode($post->post_title); ?>
     };
 
     // 分享的回调
@@ -160,5 +163,20 @@ WeixinApi.ready(function(Api) {
 
 	}
 })();
+</script>
+<script>
+//weixin://contacts/profile/gh_7de45f5b71f9
+function WeiXinAddContact(wxid, cb)   { 
+ if (typeof WeixinJSBridge == 'undefined')  return false;  
+ WeixinJSBridge.invoke('addContact', { webtype: '1', username: wxid  },  
+ function(d) {   
+	WeixinJSBridge.log(d.err_msg);  cb && cb(d.err_msg); });
+ }
+ function viewProfile() {
+	typeof WeixinJSBridge != "undefined" && WeixinJSBridge.invoke && WeixinJSBridge.invoke("profile", {
+	username: "gh_7de45f5b71f9",
+	scene: "57"
+	});
+}
 </script>
 <?php get_footer(); ?>
