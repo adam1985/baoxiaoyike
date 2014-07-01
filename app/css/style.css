@@ -443,7 +443,7 @@ img.alignleft {
 .message {
 	margin-bottom:-6px;
 }
-.mini-share{overflow:hidden; margin : 8px 0 6px;}
+.mini-share{overflow:hidden; margin : 6px 0 8px;}
 .mini-share > div { float:right;}
 .add-contacts{color:#607FA6;}
 
