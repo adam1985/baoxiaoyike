@@ -443,7 +443,7 @@ img.alignleft {
 .message {
 	margin-bottom:-6px;
 }
-.mini-share{overflow:hidden; margin : 6px 0 8px;}
+.mini-share{overflow:hidden; margin : 6px 0 10px;}
 .mini-share > div { float:right;}
 .add-contacts{color:#607FA6;}
 
@@ -482,5 +482,5 @@ img.alignleft {
 
 }
 #share-weixin-icon img{vertical-align:midden;}
-.joke-content img{ padding:5px 0;}
+.joke-content img{ padding:3px 0;}
 
