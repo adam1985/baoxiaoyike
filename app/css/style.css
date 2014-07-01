@@ -444,7 +444,7 @@ img.alignleft {
 	margin-bottom:-6px;
 }
 .mini-share{overflow:hidden; margin : 6px 0 10px;}
-.mini-share > div { float:right;}
+.mini-share > div { float:left;}
 .add-contacts{color:#607FA6;}
 
 .weixin-share-tip, .weixin-share-tip img {
