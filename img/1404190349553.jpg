@@ -1,0 +1,3 @@
+<br />
+<b>Warning</b>:  file_get_contents(http://adam1985.github.io/baoxiaoyike/img/1404190336605.jpg) [<a href='function.file-get-contents'>function.file-get-contents</a>]: failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in <b>/home/baoxiaoy/public_html/wp-content/themes/ifunny/functions.php</b> on line <b>669</b><br />
