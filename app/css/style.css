@@ -253,7 +253,7 @@ img.alignleft {
 	margin: 0 10px 10px 0;
 }
 .primary p img{
-	max-width: 80%;
+	width:100%;
 	height: auto;
 }
 /****** 评论 ******/
@@ -443,7 +443,7 @@ img.alignleft {
 .message {
 	margin-bottom:-6px;
 }
-.mini-share{overflow:hidden; margin-bottom:3px;}
+.mini-share{overflow:hidden; margin : 6px 0;}
 .mini-share > div { float:right;}
 .add-contacts{color:#607FA6;}
 
@@ -481,4 +481,6 @@ img.alignleft {
 	margin-right:6px;
 
 }
-#share-weixin-icon img {vertical-align:midden;}
+#share-weixin-icon img{vertical-align:midden;}
+.joke-content img{ padding:5px 0;}
+
