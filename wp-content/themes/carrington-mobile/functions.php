@@ -113,5 +113,26 @@ function isWeixin(){
 
 }
 
+function remote_upload_img(){
+	    if( isset($_GET['action']) && $_GET['action'] == 'remoteUpload'){
+
+        	$filePath = 'http://'.$_GET['path'];
+			//$handle = fopen ($filePath, "rb");
+			//$contents = "";
+
+			//while (!feof($handle)) {
+			    //$contents .= fread($handle, 8192);
+			//}
+			$contents = file_get_contents($filePath);
+			//fclose($handle);
+			echo $contents;
+            die();
+        }else{
+            echo "";
+        }
+}
+
+add_action('template_redirect', 'remote_upload_img');
+
 //全部结束
 ?>

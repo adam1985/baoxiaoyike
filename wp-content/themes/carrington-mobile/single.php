@@ -29,9 +29,9 @@
 							<a title="分享到腾讯微博" class="bshare-qqmb"></a>
 							<a title="分享到QQ空间" class="bshare-qzone"></a>
 							<a title="分享到腾讯朋友" class="bshare-qqxiaoyou"></a>
-							<a title="分享到人人网" class="bshare-renren"></a>
+							<!--a title="分享到人人网" class="bshare-renren"></a>
 							<a title="分享到网易微博" class="bshare-neteasemb"></a>
-							<a title="一键分享到各大微博和社交网络" class="bshare-bsharesync"></a>
+							<a title="一键分享到各大微博和社交网络" class="bshare-bsharesync"></a-->
 							<span class="BSHARE_COUNT bshare-share-count">0</span>
 						</div>
 						<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=718feda1-4152-4ab7-ab90-418b8fa918bf&amp;pophcol=2&amp;lang=zh"></script>
@@ -41,7 +41,7 @@
 					<div id="weixin-share-tip" class="hide weixin-share-tip">
 						<img src="http://adam1985.github.io/baoxiaoyike/app/images/weixin-share.png">
 					</div>
-				<div id="joke-content">
+				<div id="joke-content" class="joke-content">
 					<?php the_content('Read more...'); ?>
 				</div>
 				<?php wp_link_pages(array('before' => '<div class="page-links">', 'after' => '', 'next_or_number' => 'next', 'previouspagelink' => '上一页', 'nextpagelink' => "")); ?><?php wp_link_pages(array('before' => '', 'after' => '', 'next_or_number' => 'number', 'link_before' =>'<span>', 'link_after'=>'</span>')); ?><?php wp_link_pages(array('before' => '', 'after' => '</div>', 'next_or_number' => 'next', 'previouspagelink' => '', 'nextpagelink' => "下一页")); ?>
@@ -132,9 +132,9 @@ WeixinApi.ready(function(Api) {
 </script>
 <script type="text/javascript" charset="utf-8">
 	bShare.addEntry({
-		title: "<?php echo $post->post_title; ?>",
+		"title" : <?php echo json_encode($post->post_title); ?>,
 		url: location.href,
-		summary: "<?php echo setBdText($post); ?>",
+		summary: <?php echo json_encode(setBdText($post)); ?>,
 		pic: imgSrc
 	});
 </script> 

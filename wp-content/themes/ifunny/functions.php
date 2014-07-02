@@ -214,9 +214,9 @@ function twentyfourteen_font_url() {
 	 * Translators: If there are characters in your language that are not supported
 	 * by Lato, translate this to 'off'. Do not translate into your own language.
 	 */
-	if ( 'off' !== _x( 'on', 'Lato font: on or off', 'twentyfourteen' ) ) {
+	/*if ( 'off' !== _x( 'on', 'Lato font: on or off', 'twentyfourteen' ) ) {
 		$font_url = add_query_arg( 'family', urlencode( 'Lato:300,400,700,900,300italic,400italic,700italic' ), "//fonts.googleapis.com/css" );
-	}
+	}*/
 
 	return $font_url;
 }
@@ -556,8 +556,7 @@ function pagination($query_string){
 //添加特色缩略图支持
 if ( function_exists('add_theme_support') )add_theme_support('post-thumbnails');
  
-function post_thumbnail_src(){
-    global $post;
+function post_thumbnail_src($post){
 	if( $values = get_post_custom_values("thumb") ) {	//输出自定义域图片地址
 		$values = get_post_custom_values("thumb");
 		$post_thumbnail_src = $values [0];
@@ -575,8 +574,7 @@ function post_thumbnail_src(){
 			//echo get_bloginfo('template_url');
 			//echo '/images/pic/'.$random.'.jpg';
 			//如果日志中没有图片，则显示默认图片
-			//echo '/images/default_thumb.jpg';
-			return "";
+			$post_thumbnail_src =  "http://adam1985.github.io/baoxiaoyike/assets/images/mini_logo.jpg";
 		}
 	};
 	return $post_thumbnail_src;
@@ -656,18 +654,22 @@ function digg_action_do(){
 
 add_action('template_redirect', 'digg_action_do');
 
+
+
+
+
 function remote_upload_img(){
 	    if( isset($_GET['action']) && $_GET['action'] == 'remoteUpload'){
 
         	$filePath = 'http://'.$_GET['path'];
-			$handle = fopen ($filePath, "rb");
-			$contents = "";
+			//$handle = fopen ($filePath, "rb");
+			//$contents = "";
 
-			while (!feof($handle)) {
-			    $contents .= fread($handle, 8192);
-			}
-			//$contents = file_get_contents($filePath);
-			fclose($handle);
+			//while (!feof($handle)) {
+			    //$contents .= fread($handle, 8192);
+			//}
+			$contents = file_get_contents($filePath);
+			//fclose($handle);
 			echo $contents;
             die();
         }else{
@@ -753,12 +755,60 @@ function createBdshare($post){
     $bdShare -> bdText = setBdText($post);
     $bdShare -> bdDesc = $post->post_title;
     $bdShare -> bdUrl = get_permalink();
-    $bdShare -> bdPic = post_thumbnail_src();
+    $bdShare -> bdPic = post_thumbnail_src($post);
 	echo json_encode( $bdShare ); 
 }
 
+ // 定义一个微信笑话接口
+class mpjoke{  
+    var $title;  
+    var $description;  
+    var $picUrl;  
+    var $url;    
+} 
 
 
+function get_joke_list(){
+		
+        if( isset($_GET['action']) && $_GET['action'] == 'getjoke'){
+			/*if( isset($_GET['start']) ) {
+				$start = isset($_GET['start']);
+			} else {
+				$start = 1;
+			}
+			
+			if( isset($_GET['pagesize']) ) {
+				$pagesize = isset($_GET['pagesize']);
+			} else {
+				$pagesize = 5;
+			}*/
+		
+			global $wpdb;
+			
+			$json=array();
+
+			$articles = $wpdb->get_results("SELECT ID, post_title, post_content FROM $wpdb->posts WHERE id >= (SELECT FLOOR( MAX(id) * RAND()) FROM $wpdb->posts ) ORDER BY id LIMIT 5");
+			
+			//$articles = $wpdb->get_results("SELECT ID, post_title, post_content FROM $wpdb->posts limit 0,5");
+			
+			foreach ($articles as $article) {
+				$mpjoke = new mpjoke(); 
+				$mpjoke -> title = $article->post_title;
+				$mpjoke -> description = setBdText($article);
+				$mpjoke -> picUrl = post_thumbnail_src($article);
+				$mpjoke -> url = get_permalink($article->ID);
+				array_push($json, $mpjoke);  
+			}
+			
+			echo json_encode($json);
+
+            die();
+        }else{
+            return;
+        }
+}
+
+add_action('template_redirect', 'get_joke_list');
 
 
 

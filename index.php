@@ -44,16 +44,17 @@ $url = $_SERVER['REQUEST_URI'];
 //echo $the_host;
 
 
-
+		
 
 if ( isMobile() ){
 	if(  $the_host != 'm.baoxiaoyike.cn' ) {
-		//Header("HTTP/1.1 301 Moved Permanently");
-		//Header("Location: http://m.baoxiaoyike.cn". $url );
-		echo "<script>";
-		$path = 'http://m.baoxiaoyike.cn'.$url;
-		echo "window.location.href = '$path'"; 
-		echo "</script>"; 
+		Header("HTTP/1.1 301 Moved Permanently");
+		Header("Location: http://m.baoxiaoyike.cn". $url );
+		exit;
+		//echo "<script>";
+		//$path = 'http://m.baoxiaoyike.cn'.$url;
+		//echo "window.location.href = '$path'"; 
+		//echo "</script>"; 
 		
 	}
 	//Header("HTTP/1.1 301 Moved Permanently");
@@ -64,12 +65,13 @@ if ( isMobile() ){
 	//exit;
 } else {
 	if(  $the_host != 'www.baoxiaoyike.cn' ) {
-		//Header("HTTP/1.1 301 Moved Permanently");
-		//Header("Location: http://www.baoxiaoyike.cn". $url );
-		echo "<script>";
-		$path = 'http://www.baoxiaoyike.cn'.$url;
-		echo "window.location.href = '$path'"; 
-		echo "</script>"; 
+		Header("HTTP/1.1 301 Moved Permanently");
+		Header("Location: http://www.baoxiaoyike.cn". $url );
+		exit;
+		//echo "<script>";
+		//$path = 'http://www.baoxiaoyike.cn'.$url;
+		//echo "window.location.href = '$path'"; 
+		//echo "</script>"; 
 		
 	}
 	//Header("HTTP/1.1 301 Moved Permanently");
@@ -79,8 +81,6 @@ if ( isMobile() ){
 	//echo "window.location.href = '$path'"; 
 	//exit;
 }
-
-
 ob_end_flush();
 
 
