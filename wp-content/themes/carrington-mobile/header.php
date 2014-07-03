@@ -24,7 +24,8 @@
 <script type="text/javascript" src="http://adam1985.github.io/baoxiaoyike/app/scripts/jquery-2.1.1.min.js" ></script>
 <?php if ( is_home() || is_archive() || is_search()) { ?>
 <script type="text/javascript">
-	$('.load_more_cont').on('click', 'a', function(e) {
+jQuery(function(){
+	$('#main').delegate('.load_more_cont a', 'click', function(e) {
 			e.preventDefault();
 	        $('.load_more_text a').html('加载中...');
 			$.ajax({
@@ -45,6 +46,8 @@
 				}
 			});
 	});
+});
+
 </script>
 <?php } ?>
 </head>
