@@ -34,8 +34,11 @@ function mytheme_end_comment() {
 		echo '</li>';
 }
 
-function post_thumbnail_src(){
-    global $post;
+
+//添加特色缩略图支持
+if ( function_exists('add_theme_support') )add_theme_support('post-thumbnails');
+ 
+function post_thumbnail_src($post){
 	if( $values = get_post_custom_values("thumb") ) {	//输出自定义域图片地址
 		$values = get_post_custom_values("thumb");
 		$post_thumbnail_src = $values [0];
@@ -46,19 +49,28 @@ function post_thumbnail_src(){
 		$post_thumbnail_src = '';
 		ob_start();
 		ob_end_clean();
-		echo $post->post_content;
 		$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
 		$post_thumbnail_src = $matches[1][0];   //获取该图片 src
 		if(empty($post_thumbnail_src)){	//如果日志中没有图片，则显示随机图片
-			//$random = mt_rand(1, 10);
+			$img_length = 945;
+			$target_img_id = $post->ID % $img_length;
+			//$random = mt_rand(0, 945);
 			//echo get_bloginfo('template_url');
 			//echo '/images/pic/'.$random.'.jpg';
 			//如果日志中没有图片，则显示默认图片
-			//echo '/images/default_thumb.jpg';
-			return "";
+			$post_thumbnail_src =  "http://adam1985.github.io/baoxiaoyike/pic/".$target_img_id.".jpg";
 		}
 	};
 	return $post_thumbnail_src;
+}
+
+
+function has_thumbnail($content){
+	if(preg_match("/<img.*>/i",$content)){
+		return true;
+	}else{
+		return false;
+	}
 }
 
 function setBdText($post){
@@ -133,6 +145,60 @@ function remote_upload_img(){
 }
 
 add_action('template_redirect', 'remote_upload_img');
+
+
+ // 定义一个微信笑话接口
+class mpjoke{  
+    var $title;  
+    var $description;  
+    var $picUrl;  
+    var $url;    
+} 
+
+
+function get_joke_list(){
+		
+        if( isset($_GET['action']) && $_GET['action'] == 'getjoke'){
+			/*if( isset($_GET['start']) ) {
+				$start = isset($_GET['start']);
+			} else {
+				$start = 1;
+			}
+			
+			if( isset($_GET['pagesize']) ) {
+				$pagesize = isset($_GET['pagesize']);
+			} else {
+				$pagesize = 5;
+			}*/
+		
+			global $wpdb;
+			
+			$json=array();
+
+			//$articles = $wpdb->get_results("SELECT ID, post_title, post_content FROM $wpdb->posts WHERE id >= (SELECT FLOOR( MAX(id) * RAND()) FROM $wpdb->posts ) and post_status='publish' ORDER BY id LIMIT 5");
+			
+			//$articles = $wpdb->get_results("SELECT ID, post_title, post_content FROM $wpdb->posts limit 0,5");
+			
+			$articles = get_posts('numberposts=5&orderby=rand&post_status=publish');
+			
+			foreach ($articles as $article) {
+				$mpjoke = new mpjoke(); 
+				$mpjoke -> title = $article->post_title;
+				$mpjoke -> description = setBdText($article);
+				$mpjoke -> picUrl = post_thumbnail_src($article);
+				$mpjoke -> url = get_permalink($article->ID);
+				array_push($json, $mpjoke);  
+			}
+			
+			echo json_encode($json);
+
+            die();
+        }else{
+            return;
+        }
+}
+
+add_action('template_redirect', 'get_joke_list');
 
 //全部结束
 ?>

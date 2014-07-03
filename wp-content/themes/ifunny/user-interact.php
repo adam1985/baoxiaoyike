@@ -15,17 +15,19 @@
         </div>
 
         <div class="fr baidu-share">
-            <div class="bdsharebuttonbox" data-tag="share_1" data-config='<?php createBdshare($post); ?>'>
-                <a class="bds_weixin" data-cmd="weixin"></a>
-                <a class="bds_tsina" data-cmd="tsina"></a>
-                <a class="bds_tqq" data-cmd="tqq"></a>
-                <a class="bds_qzone" data-cmd="qzone"></a>
-                <a class="bds_tqf" data-cmd="tqf"></a>
-                <a class="bds_sqq" data-cmd="sqq"></a>
-                <a class="bds_renren" data-cmd="renren"></a>
-                <a class="bds_baidu" data-cmd="baidu"></a>
-                <a class="bds_more" data-cmd="more">更多</a>
-            </div>
+			<div class="mini-share">
+				<div class="bshare-custom icon-medium" data-share-data='<?php createBdshare($post); ?>'>
+					<a title="分享到微信" class="bshare-weixin"></a>
+					<a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+					<a title="分享到腾讯微博" class="bshare-qqmb"></a>
+					<a title="分享到QQ空间" class="bshare-qzone"></a>
+					<a title="分享到腾讯朋友" class="bshare-qqxiaoyou"></a>
+					<a title="分享到人人网" class="bshare-renren"></a>
+					<a title="分享到网易微博" class="bshare-neteasemb"></a>
+					<a title="一键分享到各大微博和社交网络" class="bshare-bsharesync"></a>
+					<span class="BSHARE_COUNT bshare-share-count">0</span>
+				</div>
+			</div>
         </div>
     </div>
     <div class="fr user-comment">

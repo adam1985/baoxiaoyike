@@ -1,1 +1,3 @@
-    <script src="http://adam1985.github.io/baoxiaoyike/assets/require.min.js" data-main="http://adam1985.github.io/baoxiaoyike/assets/dist/index"></script>
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=718feda1-4152-4ab7-ab90-418b8fa918bf&amp;pophcol=2&amp;lang=zh"></script>
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+<script src="http://adam1985.github.io/baoxiaoyike/assets/require.min.js" data-main="http://adam1985.github.io/baoxiaoyike/assets/dist/index"></script>

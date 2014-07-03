@@ -11,7 +11,7 @@
  *
  * @var bool
  */
-ob_start(); 
+//ob_start(); 
  
 //判断是否移动端
 
@@ -81,7 +81,7 @@ if ( isMobile() ){
 	//echo "window.location.href = '$path'"; 
 	//exit;
 }
-ob_end_flush();
+//ob_end_flush();
 
 
 define('WP_USE_THEMES', true);

@@ -21,29 +21,29 @@
 <link rel="stylesheet" type="text/css" media="all" href="http://adam1985.github.io/baoxiaoyike/app/css/style.css" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php wp_head(); ?>
-<script type="text/javascript" src="http://adam1985.github.io/baoxiaoyike/app/scripts/jquery.min.js" ></script>
+<script type="text/javascript" src="http://adam1985.github.io/baoxiaoyike/app/scripts/jquery-2.1.1.min.js" ></script>
 <?php if ( is_home() || is_archive() || is_search()) { ?>
 <script type="text/javascript">
-	$('.load_more_cont a').live('click', function(e) {
-		e.preventDefault();
+	$('.load_more_cont').on('click', 'a', function(e) {
+			e.preventDefault();
 	        $('.load_more_text a').html('加载中...');
 			$.ajax({
-			type: "GET",
-			url: $(this).attr('href') + '#main',
-			dataType: "html",
-			success: function(out) {
-				result = $(out).find('#content .post_box');
-				nextlink = $(out).find('.load_more_cont a').attr('href');
-	                    $("#content").append(result.fadeIn(500));
-	                    $('.load_more_text a').html('查看更多...');
-				if (nextlink != undefined) {
-					$('.load_more_cont a').attr('href', nextlink);
-				} else {
-					$('.load_more_cont').remove();
-	                $('#content').append('<div class="clear"></div>');
+				type: "GET",
+				url: $(this).attr('href') + '#main',
+				dataType: "html",
+				success: function(out) {
+					result = $(out).find('#content .post_box');
+					nextlink = $(out).find('.load_more_cont a').attr('href');
+							$("#content").append(result.fadeIn(500));
+							$('.load_more_text a').html('查看更多...');
+					if (nextlink != undefined) {
+						$('.load_more_cont a').attr('href', nextlink);
+					} else {
+						$('.load_more_cont').remove();
+						$('#content').append('<div class="clear"></div>');
+					}
 				}
-			}
-		});
+			});
 	});
 </script>
 <?php } ?>

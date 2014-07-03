@@ -570,14 +570,25 @@ function post_thumbnail_src($post){
 		$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
 		$post_thumbnail_src = $matches[1][0];   //获取该图片 src
 		if(empty($post_thumbnail_src)){	//如果日志中没有图片，则显示随机图片
-			//$random = mt_rand(1, 10);
+			$img_length = 945;
+			$target_img_id = $post->ID % $img_length;
+			//$random = mt_rand(0, 945);
 			//echo get_bloginfo('template_url');
 			//echo '/images/pic/'.$random.'.jpg';
 			//如果日志中没有图片，则显示默认图片
-			$post_thumbnail_src =  "http://adam1985.github.io/baoxiaoyike/assets/images/mini_logo.jpg";
+			$post_thumbnail_src =  "http://adam1985.github.io/baoxiaoyike/pic/".$target_img_id.".jpg";
 		}
 	};
 	return $post_thumbnail_src;
+}
+
+
+function has_thumbnail($content){
+	if(preg_match("/<img.*>/i",$content)){
+		return true;
+	}else{
+		return false;
+	}
 }
 
 
@@ -730,10 +741,10 @@ function setPostViews($postID) {
 
  // 定义一个百度分享数据 
 class bdShare{  
-    var $bdText;  
-    var $bdDesc;  
-    var $bdUrl;  
-    var $bdPic;    
+    var $title;  
+    var $summary;  
+    var $url;  
+    var $pic;    
 }  
       
  
@@ -752,10 +763,10 @@ function setBdText($post){
 function createBdshare($post){
     $bdShare = new bdShare(); 
 
-    $bdShare -> bdText = setBdText($post);
-    $bdShare -> bdDesc = $post->post_title;
-    $bdShare -> bdUrl = get_permalink();
-    $bdShare -> bdPic = post_thumbnail_src($post);
+    $bdShare -> title = setBdText($post);
+    $bdShare -> summary = $post->post_title;
+    $bdShare -> url = get_permalink();
+    $bdShare -> pic = post_thumbnail_src($post);
 	echo json_encode( $bdShare ); 
 }
 
@@ -787,9 +798,11 @@ function get_joke_list(){
 			
 			$json=array();
 
-			$articles = $wpdb->get_results("SELECT ID, post_title, post_content FROM $wpdb->posts WHERE id >= (SELECT FLOOR( MAX(id) * RAND()) FROM $wpdb->posts ) ORDER BY id LIMIT 5");
+			//$articles = $wpdb->get_results("SELECT ID, post_title, post_content FROM $wpdb->posts WHERE id >= (SELECT FLOOR( MAX(id) * RAND()) FROM $wpdb->posts ) and post_status='publish' ORDER BY id LIMIT 5");
 			
 			//$articles = $wpdb->get_results("SELECT ID, post_title, post_content FROM $wpdb->posts limit 0,5");
+			
+			$articles = get_posts('numberposts=5&orderby=rand&post_status=publish');
 			
 			foreach ($articles as $article) {
 				$mpjoke = new mpjoke(); 
@@ -809,8 +822,3 @@ function get_joke_list(){
 }
 
 add_action('template_redirect', 'get_joke_list');
-
-
-
-
-

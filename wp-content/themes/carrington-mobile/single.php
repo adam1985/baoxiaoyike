@@ -43,6 +43,9 @@
 					</div>
 				<div id="joke-content" class="joke-content">
 					<?php the_content('Read more...'); ?>
+					<?php if( !has_thumbnail(get_the_content()) ) { ?>
+						<p><img src="<?php echo post_thumbnail_src($post); ?>" /></p>
+					<?php } ?>
 				</div>
 				<?php wp_link_pages(array('before' => '<div class="page-links">', 'after' => '', 'next_or_number' => 'next', 'previouspagelink' => '上一页', 'nextpagelink' => "")); ?><?php wp_link_pages(array('before' => '', 'after' => '', 'next_or_number' => 'number', 'link_before' =>'<span>', 'link_after'=>'</span>')); ?><?php wp_link_pages(array('before' => '', 'after' => '</div>', 'next_or_number' => 'next', 'previouspagelink' => '', 'nextpagelink' => "下一页")); ?>
 				<div class="scroll-top"><a href="javascript:scroll(0,0)">返回顶部</a></div>
@@ -133,9 +136,9 @@ WeixinApi.ready(function(Api) {
 <script type="text/javascript" charset="utf-8">
 	bShare.addEntry({
 		"title" : <?php echo json_encode($post->post_title); ?>,
-		url: location.href,
-		summary: <?php echo json_encode(setBdText($post)); ?>,
-		pic: imgSrc
+		"url": location.href,
+		"summary": <?php echo json_encode(setBdText($post)); ?>,
+		"pic": imgSrc
 	});
 </script> 
 <script>
