@@ -1,0 +1,4 @@
+<br />
+<b>Warning</b>:  file_get_contents() [<a href='function.file-get-contents'>function.file-get-contents</a>]: php_network_getaddresses: getaddrinfo failed: Name or service not known in <b>/home/baoxiaoy/public_html/wp-content/themes/ifunny/functions.php</b> on line <b>669</b><br />
+<br />
+<b>Warning</b>:  file_get_contents(http://t3.qpic.cn/mblogpic/4c5b84ad5820bac75810/460.jpg) [<a href='function.file-get-contents'>function.file-get-contents</a>]: failed to open stream: php_network_getaddresses: getaddrinfo failed: Name or service not known in <b>/home/baoxiaoy/public_html/wp-content/themes/ifunny/functions.php</b> on line <b>669</b><br />
