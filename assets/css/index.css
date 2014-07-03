@@ -78,7 +78,7 @@ body{font-size:12px;font-family:Arial,"宋体"}
 .hclick-digg .digg-down p{background-position:0 -136px}
 .hclick-digg .digg-down a:hover p{background-position:0 -135px}
 .user-interact{width:100%}
-.baidu-share{width:315px}
+.baidu-share{/*width:350px;*/}
 .page-list{height:26px;line-height:26px;text-align:center;width:100%;padding:6px 0;margin-bottom:15px;}
 .page-list ul{margin-left:118px}
 .page-list li{float:left;margin-right:2px;}

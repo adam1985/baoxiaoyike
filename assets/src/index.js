@@ -1,5 +1,5 @@
 require.config({
-    baseUrl: '/assets/src',
+    baseUrl: 'http://adam1985.github.io/baoxiaoyike/assets/src',
     paths: {
         'jquery': 'jquery/jquery'
     }
