@@ -146,14 +146,14 @@
     }
 
     githubFile.change(function(){
-        loadingBox.show();
+        loadingBox.show(0);
         var file = document.getElementById('fileToUpload').files[0];
         doActionUpload( file );
 
     });
 
     $('#upload-remote-img').click(function(){
-        loadingBox.show();
+        loadingBox.show(0);
         var path = $('#remote-upload').val();
         var blob = getImageBlob('http://www.baoxiaoyike.cn/',path);
         doActionUpload( blob );
