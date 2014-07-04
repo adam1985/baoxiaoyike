@@ -62,7 +62,7 @@
 						<p class="add-contacts-tips">
 							<span class="title"> >关注小技巧 </span>
 							<span class="item">☞点击右上角→查看公众号→关注即可</span>
-							<span class="item">☞添加朋友→查找公众号“baoxiao-yike” <br /> →关注即可</span>
+							<span class="item">☞添加朋友→查找公众号“<span>baoxiao-yike</span>” <br /> →关注即可</span>
 						</p>
 						<p>
 							<img src="http://adam1985.github.io/baoxiaoyike/app/images/bottom-tips.png">
