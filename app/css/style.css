@@ -469,7 +469,7 @@ img.alignleft {
 }
 #share-weixin-icon img{vertical-align:midden;}
 .joke-content img{ padding:3px 0;}
-.add-contacts-tips span{display:block;}
+.add-contacts-tips > span{display:block;}
 .add-contacts-tips .title{color:#607fa6;}
 
 
