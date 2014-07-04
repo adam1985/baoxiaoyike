@@ -7,11 +7,16 @@
 					<h2 class="primary-title"><?php the_title(); ?></h2>
 					<div class="archive_info">
 						<span class="date"><?php the_time('Y年m月d日') ?></span>
-						<span><a class="add-contacts" href="#mp.weixin.qq.com" onclick="javascript:viewProfile()">爆笑一刻</a></span>
+						<span><a class="add-contacts" href="javascript:void(null)">爆笑一刻</a></span>
 						<span class="comment"> &#8260; <?php comments_popup_link('暂无评论', '评论数 1', '评论数 %'); ?></span>
 						<?php if(function_exists('the_views')) { print ' &#8260; 被围观 '; the_views(); print '+';  } ?>
 						<span class="edit"><?php edit_post_link('编辑', '  ', '  '); ?></span>
 					</div>
+					<?php if( isWeixin() ) { ?>
+						<p class="top-tips">
+							<img src="http://adam1985.github.io/baoxiaoyike/app/images/top-tips.png">
+						</p>
+					<?php } ?>
 					<div class="mini-share">
 						<div class="bshare-custom">
 
@@ -38,17 +43,34 @@
 						<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
 
 					</div>
-					<div id="weixin-share-tip" class="hide weixin-share-tip">
-						<img src="http://adam1985.github.io/baoxiaoyike/app/images/weixin-share.png">
-					</div>
+					<?php if( isWeixin() ) { ?>
+						<div id="weixin-share-tip" class="hide weixin-tips weixin-share-tip">
+							<img src="http://adam1985.github.io/baoxiaoyike/app/images/weixin-share.png">
+						</div>
+						<div id="weixin-contacts-tip" class="hide weixin-tips weixin-contacts-tip">
+							<img src="http://adam1985.github.io/baoxiaoyike/app/images/weixin-contacts.png">
+						</div>
+					<?php } ?>
+					
+
 				<div id="joke-content" class="joke-content">
 					<?php the_content('Read more...'); ?>
 					<?php if( !has_thumbnail(get_the_content()) ) { ?>
 						<p><img src="<?php echo post_thumbnail_src($post); ?>" /></p>
 					<?php } ?>
+					<?php if( isWeixin() ) { ?>
+						<p class="add-contacts-tips">
+							<span class="title"> >关注小技巧 </span>
+							<span class="item">☞点击右上角→查看公众号→关注即可</span>
+							<span class="item">☞添加朋友→查找公众号“baoxiao-yike” <br /> →关注即可</span>
+						</p>
+						<p>
+							<img src="http://adam1985.github.io/baoxiaoyike/app/images/bottom-tips.png">
+						</p>
+					<?php } ?>
 				</div>
 				<?php wp_link_pages(array('before' => '<div class="page-links">', 'after' => '', 'next_or_number' => 'next', 'previouspagelink' => '上一页', 'nextpagelink' => "")); ?><?php wp_link_pages(array('before' => '', 'after' => '', 'next_or_number' => 'number', 'link_before' =>'<span>', 'link_after'=>'</span>')); ?><?php wp_link_pages(array('before' => '', 'after' => '</div>', 'next_or_number' => 'next', 'previouspagelink' => '', 'nextpagelink' => "下一页")); ?>
-				<div class="scroll-top"><a href="javascript:scroll(0,0)">返回顶部</a></div>
+				<!--div class="scroll-top"><a href="javascript:scroll(0,0)">返回顶部</a></div-->
 			 </div>
 	        <?php endwhile; ?>
 	        <?php endif; ?>
@@ -144,26 +166,40 @@ WeixinApi.ready(function(Api) {
 <script>
 (function(){
  var ua = navigator.userAgent.toLowerCase(),
-	shareWeixinIcon = $('#share-weixin-icon'),
-	weixinShareTip = $('#weixin-share-tip'), timeout ;
+	 timeout;
 	if( /micromessenger/i.test( ua ) ) {
-		shareWeixinIcon.click(function(e){
-			e.stopPropagation();
-			weixinShareTip.slideDown();
-			document.body.scrollTop = 0;
-			timeout = setTimeout( function(){
-				if( weixinShareTip.is(':visible') ) {
+		var shareWeixinIcon = $('#share-weixin-icon'),
+			weixinShareTip = $('#weixin-share-tip'),
+			addContacts = $('#add-contacts'),
+			weixinContactsTip = $('#weixin-contacts-tip'),
+			weixinTips = $('.weixin-tips'),
+			
+			showTips = function( handler , boxTips ){
+				handler.click(function(e){
 					timeout && clearTimeout(timeout);
-					weixinShareTip.slideUp();
-				}
-			}, 10 * 1000);
-		});
-		
-		$(document).click(function(){
-			timeout && clearTimeout(timeout);
-			weixinShareTip.slideUp();
-		});
-
+					weixinTips.hide(0);
+					e.stopPropagation();
+					boxTips.slideDown();
+					document.body.scrollTop = 0;
+					timeout = setTimeout( function(){
+						if( boxTips.is(':visible') ) {
+							timeout && clearTimeout(timeout);
+							boxTips.slideUp();
+						}
+					}, 10 * 1000);
+				});
+				
+				$(document).click(function(){
+					timeout && clearTimeout(timeout);
+					boxTips.slideUp();
+				});
+			};
+			
+			showTips(shareWeixinIcon, weixinShareTip); //提示分享
+			
+			showTips(addContacts, weixinContactsTip); //提示关注
+			
+			
 	}
 })();
 </script>
@@ -181,5 +217,6 @@ function WeiXinAddContact(wxid, cb)   {
 	scene: "57"
 	});
 }
+
 </script>
 <?php get_footer(); ?>
