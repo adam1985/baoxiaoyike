@@ -17,9 +17,9 @@
                 isWeixin = ((/micromessenger/i).test(ua));
 
             if (isWeixin) {
-                location.href = jumpUrl.weixin;
+                open(jumpUrl.weixin, '_blank');
             } else {
-                location.href = jumpUrl.weibo;
+                open(jumpUrl.weibo, '_blank');
             }
 
         }());
