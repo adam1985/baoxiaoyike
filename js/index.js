@@ -91,10 +91,15 @@
           r.open("GET", url, false);
           r.overrideMimeType('text/plain; charset=x-user-defined');
           r.send(null);
-          var blob = binaryToBlob(r.responseText, typeAndName.type);
-          blob.name = blob.fileName = typeAndName.name;
-          blob.fileType = typeAndName.type;
-          return blob;
+		  if( r.responseText ) {
+			  var blob = binaryToBlob(r.responseText, typeAndName.type);
+			  blob.name = blob.fileName = typeAndName.name;
+			  blob.fileType = typeAndName.type;
+			  return blob;
+		  } else {
+			alert('上传失败，请重新上传');
+		  }
+
     }
 
     var github = new Github({
@@ -155,8 +160,11 @@
     $('#upload-remote-img').click(function(){
         loadingBox.show(0);
         var path = $('#remote-upload').val();
-        var blob = getImageBlob('http://www.baoxiaoyike.cn/',path);
-        doActionUpload( blob );
+        var blob = getImageBlob('/',path);
+		if( blob ) {
+			doActionUpload( blob );
+		}
+        
     });
 
 }(jQuery));
