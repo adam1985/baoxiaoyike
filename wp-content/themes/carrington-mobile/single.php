@@ -1,5 +1,7 @@
 <?php get_header(); ?>
-	<div class="browse">现在位置: <a title="返回首页" href="<?php echo get_settings('Home'); ?>/">首页</a> &gt; <?php $categories = get_the_category(); echo(get_category_parents($categories[0]->term_id, TRUE, ' &gt; '));  ?>正文</div>
+	<div class="browse">现在位置: <a title="返回首页" href="<?php echo get_settings('Home'); ?>/">首页</a> &gt; 
+	<?php $categories = get_the_category(); echo(is_wp_error($cat_parents=get_category_parents($categories[0]->term_id, TRUE, ' &gt; '))?"":$cat_parents);  ?>正文</div>
+
 	<div id="main">
 		<div id="content">
 			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
@@ -7,16 +9,20 @@
 					<h2 class="primary-title"><?php the_title(); ?></h2>
 					<div class="archive_info">
 						<span class="date"><?php the_time('Y年m月d日') ?></span>
-						<span><a class="add-contacts" href="javascript:void(null)">爆笑一刻</a></span>
+						<span><a class="add-contacts" id="add-contacts" href="javascript:void(null)">爆笑一刻</a></span>
 						<span class="comment"> &#8260; <?php comments_popup_link('暂无评论', '评论数 1', '评论数 %'); ?></span>
 						<?php if(function_exists('the_views')) { print ' &#8260; 被围观 '; the_views(); print '+';  } ?>
 						<span class="edit"><?php edit_post_link('编辑', '  ', '  '); ?></span>
 					</div>
-					<?php if( isWeixin() ) { ?>
-						<p class="top-tips">
+					
+					<p class="top-tips">
+						<?php if( isWeixin() ) { ?>	
+							<img src="http://adam1985.github.io/baoxiaoyike/app/images/weixin-top-tips.png">
+						<?php } else {  ?>
 							<img src="http://adam1985.github.io/baoxiaoyike/app/images/top-tips.png">
-						</p>
-					<?php } ?>
+						<?php } ?>
+					</p>
+					
 					<div class="mini-share">
 						<div class="bshare-custom">
 
@@ -63,11 +69,38 @@
 							<span class="title"> >关注小技巧 </span>
 							<span class="item">☞点击右上角→查看公众号→关注即可</span>
 							<span class="item">☞添加朋友→查找公众号“<span>baoxiao-yike</span>” <br /> →关注即可</span>
+							<span class="item">☞扫描下面二微码即可关注</span>
 						</p>
-						<p>
-							<img src="http://adam1985.github.io/baoxiaoyike/app/images/bottom-tips.png">
+
+					<?php } else {  ?>
+						<p class="add-contacts-tips">
+							<span class="title"> >关注我们小技巧 </span>
+							<span class="item">☞打开微信、微博扫描下面二微码即可关注</span>
+							<span class="item">☞打开微信添加朋友<br />→查找公众号“<span>baoxiao-yike</span>” <br /> →关注即可</span>
+							<span class="item">☞打开新浪微博搜索baoxiaoyike关注即可</span>
 						</p>
 					<?php } ?>
+					
+					<p>
+						<img src="http://adam1985.github.io/baoxiaoyike/app/images/bottom-tips.png">
+					</p>
+					
+					<div class="cl quick-code-box">
+					
+						<div class="fl quick-code-item">
+							<span>微信(weixin)</span>
+							<img src="http://adam1985.github.io/baoxiaoyike/app/images/weixin-code.png">
+						</div>
+						<div class="fr quick-code-item">
+							<span>微博(weibo)</span>
+							<img src="http://adam1985.github.io/baoxiaoyike/app/images/weibo-code.png">
+						</div>
+					
+					</div>
+					
+					<p>
+						
+					</p>
 				</div>
 				<?php wp_link_pages(array('before' => '<div class="page-links">', 'after' => '', 'next_or_number' => 'next', 'previouspagelink' => '上一页', 'nextpagelink' => "")); ?><?php wp_link_pages(array('before' => '', 'after' => '', 'next_or_number' => 'number', 'link_before' =>'<span>', 'link_after'=>'</span>')); ?><?php wp_link_pages(array('before' => '', 'after' => '</div>', 'next_or_number' => 'next', 'previouspagelink' => '', 'nextpagelink' => "下一页")); ?>
 				<!--div class="scroll-top"><a href="javascript:scroll(0,0)">返回顶部</a></div-->

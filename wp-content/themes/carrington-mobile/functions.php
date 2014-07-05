@@ -135,9 +135,16 @@ function remote_upload_img(){
 			//while (!feof($handle)) {
 			    //$contents .= fread($handle, 8192);
 			//}
-			$contents = file_get_contents($filePath);
+			$cnt=0;
+			while($cnt < 3 && ($contents=@file_get_contents($filePath))===FALSE) $cnt++; 
+			//$contents = file_get_contents($filePath);
 			//fclose($handle);
-			echo $contents;
+			if($contents === FALSE ) {
+				echo '';
+			} else {
+				echo $contents;
+			}
+			
             die();
         }else{
             echo "";
