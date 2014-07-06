@@ -132,7 +132,7 @@ if(thumbnails.length){
 }
 
 if(!/http/i.test(imgSrc)) {
-	imgSrc = 'http://www.baoxiaoyike.cn/' + imgSrc;
+	imgSrc = 'http://m.baoxiaoyike.cn/' + imgSrc;
 }
 
 WeixinApi.ready(function(Api) {
@@ -189,12 +189,14 @@ WeixinApi.ready(function(Api) {
 });
 </script>
 <script type="text/javascript" charset="utf-8">
+	
 	bShare.addEntry({
 		"title" : <?php echo json_encode($post->post_title); ?>,
-		"url": location.href,
+		"url": "<?php echo get_permalink(); ?>",
 		"summary": <?php echo json_encode(setBdText($post)); ?>,
-		"pic": imgSrc
+		"pic": "<?php echo post_thumbnail_src($post); ?>"
 	});
+	
 </script> 
 <script>
 (function(){
