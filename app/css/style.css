@@ -480,4 +480,5 @@ img.alignleft {
 .quick-code-item{width:48%; display:inline-block;}
 .quick-code-item img { display:block; width:100%;}
 .quick-code-item span{ display:block; text-align:center;color:#607fa6;}
+.save-code-tip{font-size: 14px; text-align:center;}
 
