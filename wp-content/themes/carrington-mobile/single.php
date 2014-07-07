@@ -67,15 +67,15 @@
 					<?php if( isWeixin() ) { ?>
 						<p class="add-contacts-tips">
 							<span class="title"> >关注小技巧 </span>
-							<span class="item">☞点击右上角→查看公众号→关注即可</span>
+							<span class="item">☞点击屏幕右上角→查看公众号→关注即可</span>
 							<span class="item">☞添加朋友→查找公众号“<span>baoxiao-yike</span>” <br /> →关注即可</span>
-							<span class="item">☞扫描下面二微码即可关注</span>
+							<span class="item">☞扫描下方二微码关注即可</span>
 						</p>
 
 					<?php } else {  ?>
 						<p class="add-contacts-tips">
 							<span class="title"> >关注我们小技巧 </span>
-							<span class="item">☞打开微信、微博扫描下面二微码即可关注</span>
+							<span class="item">☞打开微信、微博扫描下方二微码关注即可</span>
 							<span class="item">☞打开微信添加朋友<br />→查找公众号“<span>baoxiao-yike</span>” <br /> →关注即可</span>
 							<span class="item">☞打开新浪微博搜索baoxiaoyike关注即可</span>
 						</p>
@@ -98,9 +98,10 @@
 					
 					</div>
 					
-					<p>
-						
+					<p class="save-code-tip">
+						长按保存图片，通过微信、微博"相册"扫描
 					</p>
+					
 				</div>
 				<?php wp_link_pages(array('before' => '<div class="page-links">', 'after' => '', 'next_or_number' => 'next', 'previouspagelink' => '上一页', 'nextpagelink' => "")); ?><?php wp_link_pages(array('before' => '', 'after' => '', 'next_or_number' => 'number', 'link_before' =>'<span>', 'link_after'=>'</span>')); ?><?php wp_link_pages(array('before' => '', 'after' => '</div>', 'next_or_number' => 'next', 'previouspagelink' => '', 'nextpagelink' => "下一页")); ?>
 				<!--div class="scroll-top"><a href="javascript:scroll(0,0)">返回顶部</a></div-->
@@ -141,7 +142,7 @@ WeixinApi.ready(function(Api) {
 
     // 微信分享的数据
     var wxData = {
-        "appId": "", // 服务号可以填写appId
+        "appId": "gh_7de45f5b71f9", // 服务号可以填写appId
         "imgUrl" : imgSrc,
         "link" : location.href,
         "desc" : <?php echo  json_encode(setBdText($post)); ?>,

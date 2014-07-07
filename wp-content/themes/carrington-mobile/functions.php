@@ -73,9 +73,16 @@ function has_thumbnail($content){
 	}
 }
 
+function trimall($str){
+	$qian=array(" ","　","\t","\n","\r");
+	$hou=array("","","","","");
+	return str_replace($qian,$hou,$str); 
+}
+
 function setBdText($post){
 	$content = mb_strimwidth(strip_tags(apply_filters('the_content', $post -> post_content)), 0, 200,"···");
-	$content = preg_replace("/[\r\n]/","",$content); 
+	//$content = preg_replace("/[\r\n]/","",$content); 
+	$content = trimall($content);
 	
 
 	if (strlen($content) < 5){ 
