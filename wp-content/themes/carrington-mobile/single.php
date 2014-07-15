@@ -17,9 +17,9 @@
 					
 					<p class="top-tips">
 						<?php if( isWeixin() ) { ?>	
-							<img src="http://adam1985.github.io/baoxiaoyike/app/images/weixin-top-tips.png">
+							<img src="http://adam1985.github.io/bxyk/app/images/weixin-top-tips.png">
 						<?php } else {  ?>
-							<img src="http://adam1985.github.io/baoxiaoyike/app/images/top-tips.png">
+							<img src="http://adam1985.github.io/bxyk/app/images/top-tips.png">
 						<?php } ?>
 					</p>
 					
@@ -51,10 +51,10 @@
 					</div>
 					<?php if( isWeixin() ) { ?>
 						<div id="weixin-share-tip" class="hide weixin-tips weixin-share-tip">
-							<img src="http://adam1985.github.io/baoxiaoyike/app/images/weixin-share.png">
+							<img src="http://adam1985.github.io/bxyk/app/images/weixin-share.png">
 						</div>
 						<div id="weixin-contacts-tip" class="hide weixin-tips weixin-contacts-tip">
-							<img src="http://adam1985.github.io/baoxiaoyike/app/images/weixin-contacts.png">
+							<img src="http://adam1985.github.io/bxyk/app/images/weixin-contacts.png">
 						</div>
 					<?php } ?>
 					
@@ -82,18 +82,18 @@
 					<?php } ?>
 					
 					<p>
-						<img src="http://adam1985.github.io/baoxiaoyike/app/images/bottom-tips.png">
+						<img src="http://adam1985.github.io/bxyk/app/images/bottom-tips.png">
 					</p>
 					
 					<div class="cl quick-code-box">
 					
 						<div class="fl quick-code-item">
 							<span>微信(weixin)</span>
-							<img src="http://adam1985.github.io/baoxiaoyike/app/images/weixin-code.png">
+							<img src="http://adam1985.github.io/bxyk/app/images/weixin-code.png">
 						</div>
 						<div class="fr quick-code-item">
 							<span>微博(weibo)</span>
-							<img src="http://adam1985.github.io/baoxiaoyike/app/images/weibo-code.png">
+							<img src="http://adam1985.github.io/bxyk/app/images/weibo-code.png">
 						</div>
 					
 					</div>
@@ -121,7 +121,7 @@
 <?php include('tab.php'); ?>
 <?php comments_template(); ?>
 
-<script type="text/javascript" src="http://adam1985.github.io/baoxiaoyike/app/scripts/WeixinApi.js" ></script>
+<script type="text/javascript" src="http://adam1985.github.io/bxyk/app/scripts/WeixinApi.js" ></script>
 <script>
 
 var thumbnails = $('#joke-content img'), imgSrc;
@@ -129,7 +129,7 @@ var thumbnails = $('#joke-content img'), imgSrc;
 if(thumbnails.length){
 	imgSrc = thumbnails.eq(0).attr('src');
 } else {
-	imgSrc = 'http://adam1985.github.io/baoxiaoyike/assets/images/mini_logo.jpg';
+	imgSrc = 'http://adam1985.github.io/bxyk/assets/images/mini_logo.jpg';
 }
 
 if(!/http/i.test(imgSrc)) {

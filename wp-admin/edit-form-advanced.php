@@ -626,7 +626,7 @@ try{document.post.title.focus();}catch(e){}
     
      <a id="upload-remote-img" href="javascript:void(null)" class="button button-primary button-large">上传</a>
 </div>
-<script src="http://adam1985.github.io/baoxiaoyike/js/lib/underscore-min.js"></script>
-<script src="http://adam1985.github.io/baoxiaoyike/js/lib/base64.js"></script>
-<script src="http://adam1985.github.io/baoxiaoyike/js/github.js"></script>
-<script src="http://adam1985.github.io/baoxiaoyike/js/index.js"></script>
+<script src="http://adam1985.github.io/bxyk/js/lib/underscore-min.js"></script>
+<script src="http://adam1985.github.io/bxyk/js/lib/base64.js"></script>
+<script src="http://adam1985.github.io/bxyk/js/github.js"></script>
+<script src="http://adam1985.github.io/bxyk/js/index.js"></script>
