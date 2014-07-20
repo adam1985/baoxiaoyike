@@ -80,16 +80,14 @@ function trimall($str){
 }
 
 function setBdText($post){
-	$content = mb_strimwidth(strip_tags(apply_filters('the_content', $post -> post_content)), 0, 200,"···");
-	//$content = preg_replace("/[\r\n]/","",$content); 
-	$content = trimall($content);
-	
+	$content = preg_replace("/\[\[[^\]]+\]\]/m", '', $post -> post_content);
+
+	$content = mb_strimwidth(strip_tags(apply_filters('the_content', $content)), 0, 200,"···");
+	$content = trim($content);
 
 	if (strlen($content) < 5){ 
 		$content = $post->post_title;
 	}
-	
-	$content = trim($content);
 
 	return $content;
 }
@@ -214,5 +212,33 @@ function get_joke_list(){
 
 add_action('template_redirect', 'get_joke_list');
 
+function getArticleContent ( $post ){
+	$content = $post->post_content;
+	$videoRex = "/\[\[videoBase64=([^\]]+)\]\]/m";
+	if( preg_match_all($videoRex, $content, $matches) ) {
+		$videoUrls = $matches[1];
+		foreach ($videoUrls as $key=>$value){
+			$explodes = explode('||', base64_decode($value)); 
+			$videoStr = "<div class=\"video-list-item\"><video id=\"player1\" src=\"$explodes[0]\" type=\"video/mp4\" controls=\"controls\">亲，您的浏览器不支持视频播放，firefox，chrome，safari，ie9以上版本的主流浏览器，赶紧去升级!</video><img class=\"hide\" src=\"$explodes[1]\" /></div>";
+
+			//$videoStr = "<div class=\"video-list-item\"><video id=\"example_video_1\" src=\"$explodes[0]\" class=\"video-js vjs-default-skin\" controls preload width=\"640\" height=\"350\" poster=\"$explodes[1]\" data-setup=\"{}\">".
+					    //"<p class=\"vjs-no-js\">亲，您的浏览器不支持视频播放，赶紧去升级!</p>".
+					  //"</video></div>";
+			$content = preg_replace($videoRex, $videoStr, $content);		  
+		}
+
+		echo $content;
+
+	} else {
+		echo $content;
+		if( !has_thumbnail( $content ) ) {
+			$thumbnail = post_thumbnail_src($post);
+			echo "<p><img src=\"$thumbnail\" /></p>";
+		}
+		
+	}
+
+
+}
 //全部结束
 ?>

@@ -665,8 +665,12 @@ function digg_action_do(){
 
 add_action('template_redirect', 'digg_action_do');
 
+// 保存视频地址
+function save_video_url(){
 
+}
 
+add_action('publish_post', 'save_video_url');
 
 
 function remote_upload_img(){
@@ -746,6 +750,17 @@ function setPostViews($postID) {
 	}
 }
 
+function videoReaderUrlParse( $post ){
+	$videoReaderUrls = array();
+	$content = $post->post_content;
+	$videoRex = "/\[\[videoBase64=([^\]]+)\]\]/m";
+	if( preg_match_all($videoRex, $content, $matches) ) {
+		$videoReaderUrls = $matches[1];
+	}
+	return $videoReaderUrls;
+}
+
+
  // 定义一个百度分享数据 
 class bdShare{  
     var $title;  
@@ -757,7 +772,9 @@ class bdShare{
  
 
 function setBdText($post){
-	$content = mb_strimwidth(strip_tags(apply_filters('the_content', $post -> post_content)), 0, 200,"···");
+	$content = preg_replace("/\[\[[^\]]+\]\]/m", '', $post -> post_content);
+
+	$content = mb_strimwidth(strip_tags(apply_filters('the_content', $content)), 0, 200,"···");
 	$content = trim($content);
 
 	if (strlen($content) < 5){ 
@@ -767,13 +784,24 @@ function setBdText($post){
 	return $content;
 }
 
+
 function createBdshare($post){
+	$videoReg = "/\[\[[^\]]+\]\]/m";
+
     $bdShare = new bdShare(); 
 
     $bdShare -> title = setBdText($post);
     $bdShare -> summary = $post->post_title;
     $bdShare -> url = get_permalink();
-    $bdShare -> pic = post_thumbnail_src($post);
+
+    $videoTimg = videoReaderUrlParse($post);
+    if( preg_match_all($videoReg, $post->post_content, $matches)) {
+    	$explodes = explode('||', base64_decode($videoTimg[0])); 
+    	$bdShare -> pic = "$explodes[1]";
+    } else {
+    	$bdShare -> pic = post_thumbnail_src($post);
+    }
+    
 	echo json_encode( $bdShare ); 
 }
 
@@ -829,3 +857,39 @@ function get_joke_list(){
 }
 
 add_action('template_redirect', 'get_joke_list');
+
+
+
+function getArticleContent ( $post ){
+	$videoUrls = videoReaderUrlParse( $post );
+	$content = $post->post_content;
+	$videoRex = "/\[\[videoBase64=([^\]]+)\]\]/m";
+	if( count($videoUrls) > 0 ) {
+		foreach ($videoUrls as $key=>$value){
+			$explodes = explode('||', base64_decode($value)); 
+			$videoStr = "<div class=\"video-list-item\"><video src=\"$explodes[0]\" type=\"video/mp4\" preload controls=\"controls\">亲，您的浏览器不支持视频播放，firefox，chrome，safari，ie9以上版本的主流浏览器，赶紧去升级!</video><img class=\"hide\" src=\"$explodes[1]\" /></div>";
+
+			//$videoStr = "<div class=\"video-list-item\"><video id=\"example_video_1\" src=\"$explodes[0]\" class=\"video-js vjs-default-skin\" controls preload width=\"640\" height=\"350\" poster=\"$explodes[1]\" data-setup=\"{}\">".
+					    //"<p class=\"vjs-no-js\">亲，您的浏览器不支持视频播放，赶紧去升级!</p>".
+					  //"</video></div>";
+
+			$content = preg_replace($videoRex, $videoStr, $post->post_content);		  
+		}
+
+		echo $content;
+
+	} else {
+		echo $content;
+
+		if( !has_thumbnail( $content ) ) {
+			$thumbnail = post_thumbnail_src($post);
+			echo "<p><img src=\"$thumbnail\" /></p>";
+		}
+		
+	}
+
+
+}
+
+
+

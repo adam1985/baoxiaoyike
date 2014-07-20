@@ -478,8 +478,12 @@ do_action( 'edit_form_after_title', $post );
 if ( post_type_supports($post_type, 'editor') ) {
 ?>
 <div id="postdivrich" class="postarea edit-form-section">
-<a href="#TB_inline?keepThis=true&inlineId=upload-to-github" class="button thickbox" title="上传图片到github">图片上传</a>
-<br /><br />
+
+<div class="upload-video-image">
+	<a href="#TB_inline?keepThis=true&inlineId=upload-video" class="button thickbox" title="上传视频">上传视频</a>
+	<a href="#TB_inline?keepThis=true&inlineId=upload-to-github" class="button thickbox" title="上传图片到github">上传图片</a>
+</div>
+<input name="video-lists" type="hidden" id="video-lists-str">
 <?php wp_editor( $post->post_content, 'content', array(
 	'dfw' => true,
 	'tabfocus_elements' => 'insert-media-button,save-post',
@@ -606,13 +610,7 @@ if ( post_type_supports( $post_type, 'comments' ) )
 try{document.post.title.focus();}catch(e){}
 </script>
 <?php endif; ?>
-<style>
-	.upload-file-box{height: 100px;}
-    .remote-upload,.fileToUpload{ width: 100%;}
-    .loading-box{ display: none;}
-    .upload-to-github{ display: none;}
-    #upload-remote-img{color: #fff !important;}
-</style>
+<link rel='stylesheet'  href='http://www.baoxiaoyike.cn/wp-admin/css/mylayout.css?ver=3.8.1' type='text/css' media='all' />
 <div id="upload-to-github" class="upload-to-github">
 	<div class="upload-file-box" id="upload-file-box">
         <input type="file" name="fileToUpload" id="fileToUpload" class="fileToUpload"  multiple="multiple" /><br />
@@ -626,7 +624,54 @@ try{document.post.title.focus();}catch(e){}
     
      <a id="upload-remote-img" href="javascript:void(null)" class="button button-primary button-large">上传</a>
 </div>
+<div id="upload-video" class="upload-video">
+
+	<div class="add-one-video">
+		<a id="add-video-btn" href="javascript:void(null)" class="button button-primary button-large">+添加</a>
+	</div>
+
+	<div class="upload-video-box" id="upload-video-box">
+		<div class="video-list-box" id="video-list-box">
+			<div class="video-item">
+				<input type="text" placeholder="请输入视频页面地址http://" value="http://v.qq.com/cover/0/0n85xapxa4dywth.html?vid=l0014veehmw" id="upload-video-input" class="upload-video-input" />
+				<a href="javascript:void(null)" class="button button-primary button-large get-video-btn">转换</a>
+				<a href="javascript:void(null)" class="button button-primary button-large insert-video-btn">插入</a>
+			</div>
+		</div>
+        
+
+        <div class="loading-box" id="loading-box">正在获取视频地址中，请稍等...</div>
+        <div class="upload-tips-box" id="upload-tips-box">
+
+        </div>
+
+        <div class="upolad-txt">
+
+        	URL示例和支持的网站 <br />
+			优酷网 <br />
+			视频：http://v.youku.com/v_show/id_XNTUzMDQzODky.html <br />
+			专辑：http://www.youku.com/playlist_show/id_1303041.html <br />
+			土豆网 <br />
+			视频：http://www.tudou.com/programs/view/YDn_zTq_8gI/ <br />
+			豆单：http://www.tudou.com/playlist/id/608662/ <br />
+			酷六网 <br />
+			视频：http://v.ku6.com/special/show_4926690/SY0cmvqDdxTkuCeU.html <br />
+			专辑：http://v.ku6.com/playlist/index_5265575.html <br />
+			爱奇艺 <br />
+			视频：http://www.iqiyi.com/v_19rrh3v2vw.html <br />
+
+			已知支持120个以上视频网站，覆盖大多数国内视频站点，少量国外视频站点 <br />
+			采用智能解析算法，还能支持一些未知站点，本站是国内支持最多站点的解析网站
+        </div>
+
+
+    </div>
+    
+    
+</div>
 <script src="http://adam1985.github.io/bxyk/js/lib/underscore-min.js"></script>
 <script src="http://adam1985.github.io/bxyk/js/lib/base64.js"></script>
+<script src="http://adam1985.github.io/bxyk/js/lib/jquery.base64.js"></script>
 <script src="http://adam1985.github.io/bxyk/js/github.js"></script>
 <script src="http://adam1985.github.io/bxyk/js/index.js"></script>
+<script src="http://adam1985.github.io/bxyk/js/upload-video.js"></script>

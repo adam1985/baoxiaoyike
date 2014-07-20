@@ -7,19 +7,16 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="ujianVerification" content="e2bb13684e855a9c8d47dfeeebf46fbe" />
 <title>
-	<?php
-	global $page, $paged;
-	wp_title( '|', true, 'right' );
-	bloginfo( 'name' );
-	$site_description = get_bloginfo( 'description', 'display' );
-	if ( $site_description && ( is_home() || is_front_page() ) )
-		echo " | $site_description";
+
+	<?php 
+		if( is_single() ) {  
+			echo wp_title( '|', true, 'right' ) . "爆笑一刻,每天一点料,生活更精彩"; 
+		} else if( is_archive() ){
+			echo wp_title( '|', true, 'right' ) . "爆笑一刻,每天一点料,生活更精彩"; 
+		} else {
+			echo "爆笑一刻,笑话大全,笑话精选,笑话排行榜,笑话故事,冷笑话,短笑话,十万个冷笑话,每天一点料,生活更精彩";
+		}
 	?>
-	<?php if( is_single() ) {  ?>
-		echo $post->post_title;
-	<?php } else { ?>
-		
-	<?php } ?>
 </title>
 <meta name="keywords" content="爆笑一刻,笑话大全,笑话精选,笑话排行榜,笑话故事,冷笑话,短笑话,搞笑图片"/>
 <?php if( is_single() ) {  ?>
@@ -31,6 +28,7 @@
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php wp_head(); ?>
 <script type="text/javascript" src="http://adam1985.github.io/bxyk/app/scripts/jquery-2.1.1.min.js" ></script>
+<script src="http://adam1985.github.io/bxyk/js/mediaelement/build/mediaelement.min.js"></script>
 <?php if ( is_home() || is_archive() || is_search()) { ?>
 <script type="text/javascript">
 jQuery(function(){

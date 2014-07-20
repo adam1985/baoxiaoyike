@@ -38,10 +38,7 @@
                     </div>
                 </div>
                 <div class="art-content">
-                    <?php the_content(); ?>
-					<?php if( !has_thumbnail(get_the_content()) ) { ?>
-						<p><img src="<?php echo post_thumbnail_src($post); ?>" /></p>
-					<?php } ?>
+                    <?php getArticleContent($post); ?>
                 </div>
                 <?php include (TEMPLATEPATH . '/user-interact.php'); ?>
             </div>

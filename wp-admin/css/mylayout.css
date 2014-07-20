@@ -1,0 +1,14 @@
+.upload-file-box{height: 100px;}
+.remote-upload,.fileToUpload{ width: 100%;}
+.loading-box{ display: none;}
+.upload-to-github{ display: none;}
+#upload-remote-img{color: #fff !important;}
+#edit-slug-box{ min-height: inherit;}
+.upload-video{display: none; }
+.upload-video-image{ margin-bottom: 10px;}
+.add-one-video{ margin: 10px 0;}
+.video-item{ margin-bottom: 5px;}
+.video-item input{ width: 70%; height: 28px; line-height: 28px;}
+.upload-tips-box{ width: 80%;word-break:break-all }
+.upolad-txt{ margin-top: 10px; }
+#TB_ajaxContent{ height: auto !important;width: auto !important;}

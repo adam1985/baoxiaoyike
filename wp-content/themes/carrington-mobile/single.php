@@ -60,10 +60,7 @@
 					
 
 				<div id="joke-content" class="joke-content">
-					<?php the_content('Read more...'); ?>
-					<?php if( !has_thumbnail(get_the_content()) ) { ?>
-						<p><img src="<?php echo post_thumbnail_src($post); ?>" /></p>
-					<?php } ?>
+					<?php getArticleContent ( $post ); ?>
 					<?php if( isWeixin() ) { ?>
 						<p class="add-contacts-tips">
 							<span class="title"> >关注小技巧 </span>
@@ -238,6 +235,13 @@ WeixinApi.ready(function(Api) {
 			
 	}
 })();
+
+$(function(){
+	$('video').mediaelementplayer({
+    defaultVideoWidth: 480,
+    defaultVideoHeight: 270,
+	});
+});
 </script>
 <script>
 //weixin://contacts/profile/gh_7de45f5b71f9
