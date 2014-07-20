@@ -633,7 +633,7 @@ try{document.post.title.focus();}catch(e){}
 	<div class="upload-video-box" id="upload-video-box">
 		<div class="video-list-box" id="video-list-box">
 			<div class="video-item">
-				<input type="text" placeholder="请输入视频页面地址http://" value="http://v.qq.com/cover/0/0n85xapxa4dywth.html?vid=l0014veehmw" id="upload-video-input" class="upload-video-input" />
+				<input type="text" placeholder="请输入视频页面地址http://" value="" id="upload-video-input" class="upload-video-input" />
 				<a href="javascript:void(null)" class="button button-primary button-large get-video-btn">转换</a>
 				<a href="javascript:void(null)" class="button button-primary button-large insert-video-btn">插入</a>
 			</div>

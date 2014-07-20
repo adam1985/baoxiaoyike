@@ -867,7 +867,7 @@ function getArticleContent ( $post ){
 	if( count($videoUrls) > 0 ) {
 		foreach ($videoUrls as $key=>$value){
 			$explodes = explode('||', base64_decode($value)); 
-			$videoStr = "<div class=\"video-list-item\"><video src=\"$explodes[0]\" type=\"video/mp4\" preload controls=\"controls\">亲，您的浏览器不支持视频播放，firefox，chrome，safari，ie9以上版本的主流浏览器，赶紧去升级!</video><img class=\"hide\" src=\"$explodes[1]\" /></div>";
+			$videoStr = "<div class=\"video-list-item\"><video src=\"$explodes[0]\" poster=\"$explodes[1]\" type=\"video/mp4\" preload=\"none\" controls=\"controls\">亲，您的浏览器不支持视频播放，firefox，chrome，safari，ie9以上版本的主流浏览器，赶紧去升级!</video><img class=\"hide\" src=\"$explodes[1]\" /></div>";
 
 			//$videoStr = "<div class=\"video-list-item\"><video id=\"example_video_1\" src=\"$explodes[0]\" class=\"video-js vjs-default-skin\" controls preload width=\"640\" height=\"350\" poster=\"$explodes[1]\" data-setup=\"{}\">".
 					    //"<p class=\"vjs-no-js\">亲，您的浏览器不支持视频播放，赶紧去升级!</p>".
