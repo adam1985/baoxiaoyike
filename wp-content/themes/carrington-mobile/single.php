@@ -195,7 +195,7 @@ WeixinApi.ready(function(Api) {
 		"title" : <?php echo json_encode($post->post_title); ?>,
 		"url": "<?php echo get_permalink(); ?>",
 		"summary": <?php echo json_encode(setBdText($post)); ?>,
-		"pic": "<?php echo post_thumbnail_src($post); ?>"
+		"pic": imgSrc
 	});
 	
 </script> 
