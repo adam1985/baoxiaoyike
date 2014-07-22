@@ -28,7 +28,7 @@
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php wp_head(); ?>
 <script type="text/javascript" src="http://adam1985.github.io/bxyk/app/scripts/jquery-2.1.1.min.js" ></script>
-<script src="http://adam1985.github.io/bxyk/js/mediaelement/build/mediaelement.min.js"></script>
+<!-- <script src="http://adam1985.github.io/bxyk/js/mediaelement/build/mediaelement.min.js"></script> -->
 <?php if ( is_home() || is_archive() || is_search()) { ?>
 <script type="text/javascript">
 jQuery(function(){

@@ -212,25 +212,75 @@ function get_joke_list(){
 
 add_action('template_redirect', 'get_joke_list');
 
-function getArticleContent ( $post ){
+function videoReaderUrlParse( $post ){
+	$videoReaderUrls = array();
 	$content = $post->post_content;
 	$videoRex = "/\[\[videoBase64=([^\]]+)\]\]/m";
 	if( preg_match_all($videoRex, $content, $matches) ) {
-		$videoUrls = $matches[1];
+		$videoReaderUrls = $matches[1];
+	}
+	return $videoReaderUrls;
+}
+
+
+function getArticleContent ( $post ){
+	$videoUrls = videoReaderUrlParse( $post );
+	$content = $post->post_content;
+	$videoRex = "/\[\[videoBase64=([^\]]+)\]\]/m";
+	$isVideoUrl = "/\.mp4/";
+	if( count($videoUrls) > 0 ) {
 		foreach ($videoUrls as $key=>$value){
 			$explodes = explode('||', base64_decode($value)); 
-			$videoStr = "<div class=\"video-list-item\"><video src=\"$explodes[0]\" type=\"video/mp4\" preload=\"auto\" autoplay=\"autoplay\" width=\"100%\" controls=\"controls\">亲，您的浏览器不支持视频播放，firefox，chrome，safari，ie9以上版本的主流浏览器，赶紧去升级!</video><img class=\"hide\" src=\"$explodes[1]\" /></div>";
+			if( !isset($explodes[1])) {
+				$thumbnail = post_thumbnail_src( $post );
+			} else {
+				$thumbnail = $explodes[1];
+			}
 
-			//$videoStr = "<div class=\"video-list-item\"><video id=\"example_video_1\" src=\"$explodes[0]\" class=\"video-js vjs-default-skin\" controls preload width=\"640\" height=\"350\" poster=\"$explodes[1]\" data-setup=\"{}\">".
-					    //"<p class=\"vjs-no-js\">亲，您的浏览器不支持视频播放，赶紧去升级!</p>".
-					  //"</video></div>";
-			$content = preg_replace($videoRex, $videoStr, $content);		  
+			$videoSource  = "";
+
+			if( preg_match($isVideoUrl, $explodes[0]) ) {
+				$videoReadUrl = $explodes[0];
+				$firstVideoUrl =$videoReadUrl;
+				$videoSource .= "<source type=\"video/mp4\" src=\"$videoReadUrl\" />";
+			} else {
+				$videoReadUrl = $explodes[0];
+				$firstVideo = ture;
+				$videoReadUrl = preg_replace("/http:\/\//", "http:##", $videoReadUrl);	
+				$videoReadUrl = base64_encode($videoReadUrl);
+				$videoUrlParse = "http://api.flvxz.com/url/" . $videoReadUrl . "/jsonp/purejson/ftype/mp4";
+				$postCnt=0;
+				while($postCnt < 3 && ($videoParseContent=@file_get_contents($videoUrlParse))===FALSE) $postCnt++; 
+				if($contents === FALSE ) {
+					$videoSource =  '';
+				} else {
+					$videoParseJson = json_decode($videoParseContent);
+					foreach ($videoParseJson as $val) {
+						foreach ($val->files as $value) {
+							if( $firstVideo ) {
+								$firstVideoUrl = $value->furl;
+								$firstVideo = false;
+							}
+							$videoSource .= "<source type=\"video/mp4\" src=\"$value->furl\" />";
+						}
+					}
+				}
+				
+				// $videoParseContent = file_get_contents($videoUrlParse);	
+			}
+
+			$videoStr = "<div class=\"video-list-item\"><video src=\"$firstVideoUrl\" controls width=\"100%\" x-webkit-airplay=\"true\" preload=\"auto\" autoplay>".
+							$videoSource.
+						"<p>亲，您的浏览器不支持视频播放，firefox，chrome，safari，ie9以上版本的主流浏览器，赶紧去升级!</p></video><img class=\"hide\" src=\"$thumbnail\" /></div>";
+
+			$content = preg_replace($videoRex, $videoStr, $post->post_content);		  
 		}
 
 		echo $content;
 
 	} else {
 		echo $content;
+
 		if( !has_thumbnail( $content ) ) {
 			$thumbnail = post_thumbnail_src($post);
 			echo "<p><img src=\"$thumbnail\" /></p>";

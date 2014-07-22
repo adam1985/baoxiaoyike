@@ -60,7 +60,10 @@
 					
 
 				<div id="joke-content" class="joke-content">
-					<?php getArticleContent ( $post ); ?>
+					<div class="joke-item-box">
+						<?php getArticleContent ( $post ); ?>
+					</div>
+					
 					<?php if( isWeixin() ) { ?>
 						<p class="add-contacts-tips">
 							<span class="title"> >关注小技巧 </span>
@@ -237,10 +240,15 @@ WeixinApi.ready(function(Api) {
 })();
 
 $(function(){
-	$('video').mediaelementplayer({
-    defaultVideoWidth: 480,
-    defaultVideoHeight: 270,
+	$('video').on('click', function(){
+		try{
+
+			if( this.readyState < 3 ) {
+				this.load();
+			}
+		}catch(e){}
 	});
+
 });
 </script>
 <script>
