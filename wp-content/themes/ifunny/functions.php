@@ -886,7 +886,7 @@ function getArticleContent ( $post ){
 				$videoUrlParse = "http://api.flvxz.com/url/" . $videoReadUrl . "/jsonp/purejson/ftype/mp4";
 				$postCnt=0;
 				while($postCnt < 3 && ($videoParseContent=@file_get_contents($videoUrlParse))===FALSE) $postCnt++; 
-				if($contents === FALSE ) {
+				if($videoParseContent === FALSE ) {
 					$videoSource =  '';
 				} else {
 					$videoParseJson = json_decode($videoParseContent);

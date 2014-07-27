@@ -637,10 +637,14 @@ try{document.post.title.focus();}catch(e){}
 				<a href="javascript:void(null)" class="button button-primary button-large get-video-btn">转换</a>
 				<a href="javascript:void(null)" class="button button-primary button-large insert-video-btn">插入</a>
 			</div>
-		<div class="video-item">
-                <input type="text" class="source-video-input" id="source-video-input" value="" placeholder="请输入视频源地址http://||两个竖线分割输入视频缩略图地址">
-                <a class="button button-primary button-large insert-source-video-btn" href="javascript:void(null)">插入(有视频地址)</a>
-        </div>
+			<div class="video-item">
+					<input type="text" class="source-video-input" id="source-video-input" value="" placeholder="请输入视频源地址http://||两个竖线分割输入视频缩略图地址">
+					<a class="button button-primary button-large insert-source-video-btn" href="javascript:void(null)">插入(有视频地址)</a>
+			</div>
+			<div class="video-item">
+				<input type="text" class="weixin-video-input" id="weixin-video-input" value="" placeholder="请输入微信视频页面地址http://">
+				<a class="button button-primary button-large insert-weixin-video-btn" href="javascript:void(null)">插入(微信视频)</a>
+			</div>
 		</div>       
 
         <div class="loading-box" id="loading-box">正在获取视频地址中，请稍等...</div>

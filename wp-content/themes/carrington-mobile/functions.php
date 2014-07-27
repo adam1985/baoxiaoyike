@@ -251,7 +251,7 @@ function getArticleContent ( $post ){
 				$videoUrlParse = "http://api.flvxz.com/url/" . $videoReadUrl . "/jsonp/purejson/ftype/mp4";
 				$postCnt=0;
 				while($postCnt < 3 && ($videoParseContent=@file_get_contents($videoUrlParse))===FALSE) $postCnt++; 
-				if($contents === FALSE ) {
+				if($videoParseContent === FALSE ) {
 					$videoSource =  '';
 				} else {
 					$videoParseJson = json_decode($videoParseContent);
@@ -269,7 +269,7 @@ function getArticleContent ( $post ){
 				// $videoParseContent = file_get_contents($videoUrlParse);	
 			}
 
-			$videoStr = "<div class=\"video-list-item\"><video src=\"$firstVideoUrl\" controls width=\"100%\" x-webkit-airplay=\"true\" preload=\"auto\" autoplay>".
+			$videoStr = "<div class=\"video-list-item\"><video src=\"$firstVideoUrl\" controls width=\"100%\" x-webkit-airplay=\"true\" preload=\"auto\">".
 							$videoSource.
 						"<p>亲，您的浏览器不支持视频播放，firefox，chrome，safari，ie9以上版本的主流浏览器，赶紧去升级!</p></video><img class=\"hide\" src=\"$thumbnail\" /></div>";
 
