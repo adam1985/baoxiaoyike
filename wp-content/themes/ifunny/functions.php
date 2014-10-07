@@ -883,16 +883,18 @@ function getArticleContent ( $post ){
 				$videoReadUrl = $explodes[0];
 				$videoReadUrl = preg_replace("/http:\/\//", "http:##", $videoReadUrl);	
 				$videoReadUrl = base64_encode($videoReadUrl);
-				$videoUrlParse = "http://api.flvxz.com/url/" . $videoReadUrl . "/jsonp/purejson/ftype/mp4";
+				$videoUrlParse = "http://api.flvxz.com/token/c6257bb3e4848d341c6be62c7ce19257/url/" . $videoReadUrl . "/jsonp/purejson/ftype/mp4";
 				$postCnt=0;
 				while($postCnt < 3 && ($videoParseContent=@file_get_contents($videoUrlParse))===FALSE) $postCnt++; 
 				if($videoParseContent === FALSE ) {
 					$videoSource =  '';
 				} else {
 					$videoParseJson = json_decode($videoParseContent);
-					foreach ($videoParseJson as $val) {
-						foreach ($val->files as $value) {
-							$videoSource .= "<source type=\"video/mp4\" src=\"$value->furl\" />";
+					if(is_array($videoParseJson)) {
+						foreach ($videoParseJson as $val) {
+							foreach ($val->files as $value) {
+								$videoSource .= "<source type=\"video/mp4\" src=\"$value->furl\" />";
+							}
 						}
 					}
 				}
