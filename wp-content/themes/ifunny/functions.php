@@ -894,6 +894,8 @@ function getArticleContent ( $post ){
 						foreach ($videoParseJson as $val) {
 							foreach ($val->files as $value) {
 								$videoSource .= "<source type=\"video/mp4\" src=\"$value->furl\" />";
+								//$videoPath = $value->furl;
+								//break;
 							}
 						}
 					}
@@ -902,11 +904,18 @@ function getArticleContent ( $post ){
 				// $videoParseContent = file_get_contents($videoUrlParse);	
 			}
 
-			$videoStr = "<div class=\"video-list-item\"><video poster=\"$explodes[1]\" type=\"video/mp4\" controls=\"controls\">".
+			$videoStr = "<div class=\"video-list-item\"><video class=\"mediaelementplayer\" width=\"485\" height=\"275\" poster=\"$explodes[1]\" type=\"video/mp4\" controls=\"controls\" preload=\"none\">".
 							$videoSource.
 						"<p>亲，您的浏览器不支持视频播放，firefox，chrome，safari，ie9以上版本的主流浏览器，赶紧去升级!</p></video><img class=\"hide\" src=\"$thumbnail\" /></div>";
-
-			$content = preg_replace($videoRex, $videoStr, $post->post_content);		  
+			
+			/*if( isset( $videoPath ) ) {
+				$time = time();
+				$videoPlayer = "<div class=\"video-list-item\" id=\"jw_$time\" data-url=\"$videoPath\" data-pic=\"$explodes[1]\"></div>";
+				$content = preg_replace($videoRex, $videoStr, $post->post_content);		
+			}*/
+			
+			$content = preg_replace($videoRex, $videoStr, $post->post_content);		
+  
 		}
 
 		echo $content;
