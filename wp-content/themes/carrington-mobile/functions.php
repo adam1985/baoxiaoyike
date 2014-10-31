@@ -272,8 +272,8 @@ function getArticleContent ( $post ){
 			}
 
 			$videoStr = "<div class=\"video-list-item\"><video src=\"$firstVideoUrl\" controls width=\"100%\" x-webkit-airplay=\"true\" preload=\"auto\">".
-							$videoSource.
-						"<p>亲，您的浏览器不支持视频播放，firefox，chrome，safari，ie9以上版本的主流浏览器，赶紧去升级!</p></video><img class=\"hide\" src=\"$thumbnail\" /></div>";
+							//$videoSource.
+						"</video><img class=\"hide\" src=\"$thumbnail\" /></div>";
 
 			$content = preg_replace($videoRex, $videoStr, $post->post_content);		  
 		}
