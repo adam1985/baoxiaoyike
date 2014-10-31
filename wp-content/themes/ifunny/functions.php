@@ -906,7 +906,7 @@ function getArticleContent ( $post ){
 
 			$videoStr = "<div class=\"video-list-item\"><video class=\"mediaelementplayer\" width=\"485\" height=\"275\" poster=\"$explodes[1]\" type=\"video/mp4\" controls=\"controls\" preload=\"none\">".
 							$videoSource.
-						"<p>亲，您的浏览器不支持视频播放，firefox，chrome，safari，ie9以上版本的主流浏览器，赶紧去升级!</p></video><img class=\"hide\" src=\"$thumbnail\" /></div>";
+						"<p>亲，您的浏览器不支持视频播放，firefox，chrome，safari，ie9以上版本的主流浏览器，赶紧去升级!</p></video><img class=\"tindex\" src=\"$thumbnail\" /></div>";
 			
 			/*if( isset( $videoPath ) ) {
 				$time = time();
