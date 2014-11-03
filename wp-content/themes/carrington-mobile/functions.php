@@ -236,6 +236,8 @@ function getArticleContent ( $post ){
 			} else {
 				$thumbnail = $explodes[1];
 			}
+			
+			echo "<img class=\"tindex\" src=\"$thumbnail\" />";
 
 			$videoSource  = "";
 
@@ -302,7 +304,7 @@ function getArticleContent ( $post ){
 
 			$videoStr = "<div class=\"video-list-item\"><video width=\"100%\" height=\"200\" class=\"mediaelementplayer\" src=\"$firstVideoUrl\" controls=\"controls\" autoplay=\"autoplay\" x-webkit-airplay=\"true\" preload=\"auto\">".
 							$videoSource.
-						"</video><img class=\"tindex\" src=\"$thumbnail\" /></div>";
+						"</video></div>";
 
 			$content = preg_replace($videoRex, $videoStr, $post->post_content);		  
 		}
