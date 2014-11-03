@@ -24,11 +24,12 @@
 <?php } else { ?>
 <meta name="description" content="爆笑一刻笑话网,与千万网友一起分享最新最热的爆笑笑话、冷笑话、短笑话、冷话故事、内涵笑话、幽默笑话、搞笑图片、糗事笑话、成人笑话、经典笑话、内涵段子等笑话大全,天天笑料海量更新，让你乐不停!"/>
 <?php } ?>
+<!--link rel="stylesheet" href="http://adam1985.github.io/bxyk/js/mediaelement/build/mediaelementplayer.css" /-->
 <link rel="stylesheet" type="text/css" media="all" href="http://adam1985.github.io/bxyk/app/css/style.css" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php wp_head(); ?>
 <script type="text/javascript" src="http://adam1985.github.io/bxyk/app/scripts/jquery-2.1.1.min.js" ></script>
-<!-- <script src="http://adam1985.github.io/bxyk/js/mediaelement/build/mediaelement.min.js"></script> -->
+<!--script src="http://adam1985.github.io/bxyk/js/mediaelement/build/mediaelement-and-player.min.js"></script-->
 <?php if ( is_home() || is_archive() || is_search()) { ?>
 <script type="text/javascript">
 jQuery(function(){

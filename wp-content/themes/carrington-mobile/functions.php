@@ -245,35 +245,64 @@ function getArticleContent ( $post ){
 				$videoSource .= "<source type=\"video/mp4\" src=\"$videoReadUrl\" />";
 			} else {
 				$videoReadUrl = $explodes[0];
+				
+				$qqvideo = "/v\.qq\.com\/iframe\/player\.html\?vid=(.*)/";
 				$firstVideo = ture;
-				$videoReadUrl = preg_replace("/http:\/\//", "http:##", $videoReadUrl);	
-				$videoReadUrl = base64_encode($videoReadUrl);
-				$videoUrlParse = "http://api.flvxz.com/token/c6257bb3e4848d341c6be62c7ce19257/url/" . $videoReadUrl . "/jsonp/purejson/ftype/mp4";
-				$postCnt=0;
-				while($postCnt < 3 && ($videoParseContent=@file_get_contents($videoUrlParse))===FALSE) $postCnt++; 
-				if($videoParseContent === FALSE ) {
-					$videoSource =  '';
-				} else {
-					$videoParseJson = json_decode($videoParseContent);
-					if(is_array($videoParseJson)) {
-						foreach ($videoParseJson as $val) {
-							foreach ($val->files as $value) {
-								if( $firstVideo ) {
-									$firstVideoUrl = $value->furl;
+				if ( preg_match($qqvideo, $videoReadUrl, $matchRes) ){
+					$vid = $matchRes[1];
+					$qqVideoPath = "http://baoxiaoyike.sinaapp.com/qqVideo/getinfo.php?vid=$vid";
+					$postCnt=0;
+					while($postCnt < 3 && ($videoParseContent=@file_get_contents($qqVideoPath))===FALSE) $postCnt++; 
+					if($videoParseContent === FALSE ) {
+						$videoSource =  '';
+					} else {
+						$videoParseContent = preg_replace("/QZOutputJson=|;/", "", $videoParseContent);	
+						$videoParseJson = json_decode($videoParseContent);
+						$vi = $videoParseJson->vl->vi[0];
+						$ui = $vi->ul->ui;
+						$fvPath = $vi->fn . "?vkey=" . $vi->fvkey;
+						
+						foreach ($ui as $val) {
+							$readyVideoPath = $val->url . $fvPath;
+							if( $firstVideo ) {
+									$firstVideoUrl = $readyVideoPath;
 									$firstVideo = false;
+							}
+							$videoSource .= "<source type=\"video/mp4\" src=\"$readyVideoPath\" />";
+						}
+					}
+				} else {
+					
+					$videoReadUrl = preg_replace("/http:\/\//", "http:##", $videoReadUrl);	
+					$videoReadUrl = base64_encode($videoReadUrl);
+					$videoUrlParse = "http://api.flvxz.com/token/c6257bb3e4848d341c6be62c7ce19257/url/" . $videoReadUrl . "/jsonp/purejson/ftype/mp4";
+					$postCnt=0;
+					while($postCnt < 3 && ($videoParseContent=@file_get_contents($videoUrlParse))===FALSE) $postCnt++; 
+					if($videoParseContent === FALSE ) {
+						$videoSource =  '';
+					} else {
+						$videoParseJson = json_decode($videoParseContent);
+						if(is_array($videoParseJson)) {
+							foreach ($videoParseJson as $val) {
+								foreach ($val->files as $value) {
+									if( $firstVideo ) {
+										$firstVideoUrl = $value->furl;
+										$firstVideo = false;
+									}
+									$videoSource .= "<source type=\"video/mp4\" src=\"$value->furl\" />";
 								}
-								$videoSource .= "<source type=\"video/mp4\" src=\"$value->furl\" />";
 							}
 						}
 					}
 				}
+
 				
 				// $videoParseContent = file_get_contents($videoUrlParse);	
 			}
 
-			$videoStr = "<div class=\"video-list-item\"><video src=\"$firstVideoUrl\" controls width=\"100%\" x-webkit-airplay=\"true\" preload=\"auto\">".
-							//$videoSource.
-						"</video><img class=\"hide\" src=\"$thumbnail\" /></div>";
+			$videoStr = "<div class=\"video-list-item\"><video width=\"100%\" height=\"200\" class=\"mediaelementplayer\" src=\"$firstVideoUrl\" controls=\"controls\" autoplay=\"autoplay\" x-webkit-airplay=\"true\" preload=\"auto\">".
+							$videoSource.
+						"</video><img class=\"tindex\" src=\"$thumbnail\" /></div>";
 
 			$content = preg_replace($videoRex, $videoStr, $post->post_content);		  
 		}
