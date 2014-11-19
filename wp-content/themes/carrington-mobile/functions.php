@@ -240,10 +240,11 @@ function getArticleContent ( $post ){
 			echo "<img class=\"tindex\" src=\"$thumbnail\" />";
 
 			$videoSource  = "";
+			$firstVideoUrl = "";
 
 			if( preg_match($isVideoUrl, $explodes[0]) ) {
 				$videoReadUrl = $explodes[0];
-				$firstVideoUrl =$videoReadUrl;
+				$firstVideoUrl = $videoReadUrl;
 				$videoSource .= "<source type=\"video/mp4\" src=\"$videoReadUrl\" />";
 			} else {
 				$videoReadUrl = $explodes[0];
@@ -264,13 +265,17 @@ function getArticleContent ( $post ){
 						$ui = $vi->ul->ui;
 						$fvPath = $vi->fn . "?vkey=" . $vi->fvkey;
 						
-						foreach ($ui as $val) {
-							$readyVideoPath = $val->url . $fvPath;
-							if( $firstVideo ) {
-									$firstVideoUrl = $readyVideoPath;
-									$firstVideo = false;
+						if(is_array($ui)) {
+							foreach ($ui as $val) {
+								$readyVideoPath = $val->url . $fvPath;
+								if( $firstVideo ) {
+										$firstVideoUrl = $readyVideoPath;
+										$firstVideo = false;
+								}
+								$videoSource .= "<source type=\"video/mp4\" src=\"$readyVideoPath\" />";
 							}
-							$videoSource .= "<source type=\"video/mp4\" src=\"$readyVideoPath\" />";
+						} else {
+							$videoSource = "该视频暂时不能播放!";
 						}
 					}
 				} else {
