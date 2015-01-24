@@ -242,12 +242,12 @@ WeixinApi.ready(function(Api) {
 $(function(){
 	$('video').on('click', function(){
 		try{
-
 			if( this.readyState < 3 ) {
 				this.load();
 			}
 		}catch(e){}
 	});
+	//$('.mediaelementplayer').mediaelementplayer({});
 
 });
 </script>

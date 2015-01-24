@@ -863,6 +863,14 @@ function videoReaderUrlParse( $post ){
 function getArticleContent ( $post ){
 	$videoUrls = videoReaderUrlParse( $post );
 	$content = $post->post_content;
+	$isSingle = is_single();
+	if( $isSingle ) {
+		$preload = "preload=\"auto\"";
+		$autoPlay = "autoplay=\"autoplay\"";
+	} else {
+		$preload = "preload=\"none\"";
+		$autoPlay = "";
+	}
 	$videoRex = "/\[\[videoBase64=([^\]]+)\]\]/m";
 	$isVideoUrl = "/\.mp4/";
 	if( count($videoUrls) > 0 ) {
@@ -873,40 +881,82 @@ function getArticleContent ( $post ){
 			} else {
 				$thumbnail = $explodes[1];
 			}
+			
+			echo "<img class=\"tindex\" src=\"$thumbnail\" />";
 
 			$videoSource  = "";
+			$firstVideoUrl="";
 
 			if( preg_match($isVideoUrl, $explodes[0]) ) {
 				$videoReadUrl = $explodes[0];
+				$firstVideoUrl = $videoReadUrl;
 				$videoSource .= "<source type=\"video/mp4\" src=\"$videoReadUrl\" />";
 			} else {
 				$videoReadUrl = $explodes[0];
-				$videoReadUrl = preg_replace("/http:\/\//", "http:##", $videoReadUrl);	
-				$videoReadUrl = base64_encode($videoReadUrl);
-				$videoUrlParse = "http://api.flvxz.com/token/c6257bb3e4848d341c6be62c7ce19257/url/" . $videoReadUrl . "/jsonp/purejson/ftype/mp4";
-				$postCnt=0;
-				while($postCnt < 3 && ($videoParseContent=@file_get_contents($videoUrlParse))===FALSE) $postCnt++; 
-				if($videoParseContent === FALSE ) {
-					$videoSource =  '';
+				$qqvideo = "/v\.qq\.com\/iframe\/player\.html\?vid=(.*)/";
+				$firstVideo = ture;
+
+				if ( preg_match($qqvideo, $videoReadUrl, $matchRes) ){
+					$vid = $matchRes[1];
+					$qqVideoPath = "http://ibao.sturgeon.mopaas.com/qqVideo/getinfo.php?vid=$vid";
+					$postCnt=0;
+					while($postCnt < 3 && ($videoParseContent=@file_get_contents($qqVideoPath))===FALSE) $postCnt++; 
+					if($videoParseContent === FALSE ) {
+						$videoSource =  '';
+					} else {
+						$videoParseContent = preg_replace("/QZOutputJson=|;/", "", $videoParseContent);	
+						$videoParseJson = json_decode($videoParseContent);
+
+						$vi = $videoParseJson->vl->vi[0];
+						$ui = $vi->ul->ui;
+						$fvPath = $vi->fn . "?vkey=" . $vi->fvkey;
+						if(is_array($ui)) {
+							foreach ($ui as $val) {
+								$readyVideoPath = $val->url . $fvPath;
+								if( $firstVideo ) {
+										$firstVideoUrl = $readyVideoPath;
+										$firstVideo = false;
+								}
+								$videoSource .= "<source type=\"video/mp4\" src=\"$readyVideoPath\" />";
+							}
+						} else {
+							$videoSource = "该视频暂时不能播放!";
+						}
+
+					}
 				} else {
-					$videoParseJson = json_decode($videoParseContent);
-					if(is_array($videoParseJson)) {
-						foreach ($videoParseJson as $val) {
-							foreach ($val->files as $value) {
-								$videoSource .= "<source type=\"video/mp4\" src=\"$value->furl\" />";
-								//$videoPath = $value->furl;
-								//break;
+					$videoReadUrl = preg_replace("/http:\/\//", "http:##", $videoReadUrl);	
+					$videoReadUrl = base64_encode($videoReadUrl);
+					$videoUrlParse = "http://api.flvxz.com/token/c6257bb3e4848d341c6be62c7ce19257/url/" . $videoReadUrl . "/jsonp/purejson/ftype/mp4";
+					$postCnt=0;
+					while($postCnt < 3 && ($videoParseContent=@file_get_contents($videoUrlParse))===FALSE) $postCnt++; 
+					if($videoParseContent === FALSE ) {
+						$videoSource =  '';
+					} else {
+						$videoParseJson = json_decode($videoParseContent);
+						if(is_array($videoParseJson)) {
+							foreach ($videoParseJson as $val) {
+								foreach ($val->files as $value) {
+									if( $firstVideo ) {
+										$firstVideoUrl = $value->furl;
+										$firstVideo = false;
+									}
+									$videoSource .= "<source type=\"video/mp4\" src=\"$value->furl\" />";
+									//$videoPath = $value->furl;
+									//break;
+								}
 							}
 						}
 					}
-				}
 				
-				// $videoParseContent = file_get_contents($videoUrlParse);	
+					// $videoParseContent = file_get_contents($videoUrlParse);
+				}
+	
 			}
 
-			$videoStr = "<div class=\"video-list-item\"><video class=\"mediaelementplayer\" width=\"485\" height=\"275\" poster=\"$explodes[1]\" type=\"video/mp4\" controls=\"controls\" preload=\"none\">".
+			$videoStr = "<div class=\"video-list-item\"><video class=\"mediaelementplayer\" width=\"485\" height=\"275\" poster=\"$explodes[1]\" type=\"video/mp4\" controls=\"controls\" $autoPlay $preload>".
 							$videoSource.
-						"<p>亲，您的浏览器不支持视频播放，firefox，chrome，safari，ie9以上版本的主流浏览器，赶紧去升级!</p></video><img class=\"hide\" src=\"$thumbnail\" /></div>";
+						"<p>亲，您的浏览器不支持视频播放，firefox，chrome，safari，ie9以上版本的主流浏览器，赶紧去升级!</p></video></div>";
 			
 			/*if( isset( $videoPath ) ) {
 				$time = time();

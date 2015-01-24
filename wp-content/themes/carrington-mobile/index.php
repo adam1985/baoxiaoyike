@@ -7,6 +7,7 @@
 			$wp_query= null;
 			$wp_query = new WP_Query();
 			$wp_query->query('&caller_get_posts=5'.'&paged='.$paged);
+			$posts = query_posts($query_string . '&orderby=date&showposts=10'); 
 			?>
 			<?php if ( have_posts() ) : ?>
 			<?php while ( have_posts() ) : the_post(); ?>

@@ -11,6 +11,7 @@
 		<h1>Blog Archives</h1>
 		<?php } ?>
 	</div>
+	<?php $posts = query_posts($query_string . '&orderby=date&showposts=10'); ?>
 	<div id="main">
 		<div id="content">
 			<?php if (have_posts()) : ?>
