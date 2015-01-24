@@ -1,3 +1,3 @@
         <div class="copyright">
-            <p>版权所有Copyright &copy; 2013-2014 爆笑一刻www.baoxiaoyike.cn All Right Reserved</p>
+            <p> &copy;2015 爆笑一刻 &nbsp; 京ICP备14015658号-2</p>
         </div>

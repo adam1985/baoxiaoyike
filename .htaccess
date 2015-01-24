@@ -1,13 +1,9 @@
-
-# BEGIN WordPress
-<IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteBase /
-RewriteRule ^index\.php$ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.php [L]
-</IfModule>
-
-# END WordPress
-
+if (-f $request_filename/index.html){
+rewrite (.*) $1/index.html break;
+}
+if (-f $request_filename/index.php){
+rewrite (.*) $1/index.php;
+}
+if (!-f $request_filename){
+rewrite (.*) /index.php;
+}
